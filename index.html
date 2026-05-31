@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COO株式会社 ｜ 事業責任者代行 ── 秋山洋晃</title>
+<meta name="description" content="月商1億円の事業を育てたCOOが、社外から事業責任者として入ります。戦略の立案から現場の実行、AIを使った業務改善までを一貫して担当。美容・D2C・クリニックを中心に。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --tint:#eef2f7;          /* cool light block tint */
+    --tint-2:#e7ecf3;
+    --navy:#16273f;          /* brand navy (blocks) */
+    --navy-2:#1f3957;
+    --ink:#1a1c21;           /* heading/text on light */
+    --text:#3b3f47;
+    --mute:#6f7681;
+    --accent:#2f5d96;        /* restrained navy-blue accent (links/marks) */
+    --line:rgba(22,39,63,.14);
+    --line-2:rgba(22,39,63,.08);
+    --sans:"Noto Sans JP",sans-serif;
+    --num:"Barlow Condensed",sans-serif;
+    --sh:0 1px 2px rgba(22,39,63,.05),0 16px 36px -22px rgba(22,39,63,.22);
+    --sh-h:0 2px 4px rgba(22,39,63,.06),0 26px 56px -26px rgba(22,39,63,.34);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--paper);color:var(--text);font-weight:400;font-size:16px;line-height:1.95;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;letter-spacing:.01em;word-break:keep-all;overflow-wrap:anywhere}
+  budoux-ja{word-break:keep-all;overflow-wrap:anywhere}
+  ::selection{background:var(--navy);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+  .num{font-family:var(--num)}
+  .marker{display:flex;align-items:baseline;gap:13px;font-size:12.5px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:26px}
+  .marker .n{font-family:var(--num);font-size:16px;font-weight:600;letter-spacing:.04em}
+  .marker .n::after{content:"";display:inline-block;width:26px;height:2px;background:var(--accent);opacity:.45;margin:0 0 4px 12px}
+  h1,h2,h3,h4{color:var(--ink);font-weight:700;letter-spacing:-.005em}
+  .display{font-size:clamp(25px,3.3vw,40px);line-height:1.58;font-weight:700}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;
+    padding:20px 40px;transition:padding .3s ease,background .3s ease,box-shadow .3s ease;border-bottom:1px solid transparent}
+  nav.scrolled{background:rgba(251,250,247,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2);padding:13px 40px}
+  nav .brand{font-weight:700;font-size:18px;color:var(--ink);letter-spacing:.01em}
+  nav .brand .sub{font-weight:500;font-size:11.5px;color:var(--mute);margin-left:10px;letter-spacing:.04em}
+  nav .navlinks{display:flex;gap:30px;align-items:center}
+  nav .navlinks a{font-size:14px;color:var(--text);font-weight:500;transition:color .15s}
+  nav .navlinks a:hover{color:var(--accent)}
+  nav .nav-cta{font-size:13.5px;font-weight:700;color:#fff;background:var(--navy);padding:11px 22px;border-radius:7px;transition:background .15s}
+  nav .nav-cta:hover{background:var(--navy-2)}
+  @media(max-width:880px){nav .navlinks{display:none}}
+
+  /* HERO */
+  .hero{padding:148px 0 0;background:var(--paper)}
+  .hero .grid{max-width:800px}
+  .fade{opacity:0;transform:translateY(14px);animation:fade .85s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes fade{to{opacity:1;transform:none}}
+  .hero .label{font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--accent);animation-delay:.05s}
+  .hero h1{font-size:clamp(29px,3.9vw,50px);line-height:1.55;letter-spacing:-.01em;font-weight:700;margin:22px 0 0}
+  .hero h1 .l{display:block}
+  .hero h1 .l:nth-child(1){animation-delay:.14s}.hero h1 .l:nth-child(2){animation-delay:.24s}
+  .hero .lead{margin:30px 0 0;font-size:16.5px;color:var(--text);line-height:2;animation-delay:.4s}
+  .hero .lead b{color:var(--ink);font-weight:700}
+  .hero .byline{display:flex;align-items:center;gap:13px;margin-top:30px;animation-delay:.5s}
+  .hero .byline img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+  .hero .byline .t{font-size:13px;color:var(--mute);line-height:1.5}
+  .hero .byline .t b{display:block;color:var(--ink);font-size:14.5px;font-weight:700}
+  .hero .actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:34px;animation-delay:.58s}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:15px;font-weight:700;padding:15px 30px;border-radius:8px;cursor:pointer;transition:background .15s ease,transform .15s ease;border:1.5px solid var(--navy)}
+  .btn-fill{background:var(--navy);color:#fff}
+  .btn-fill:hover{background:var(--navy-2);transform:translateY(-2px)}
+  .link{font-size:15px;font-weight:700;color:var(--navy);display:inline-flex;align-items:center;gap:8px;border-bottom:2px solid var(--navy);padding-bottom:3px;transition:gap .2s}
+  .link:hover{gap:12px}
+  .hero .photo{position:relative;animation-delay:.3s}
+  .hero .photo img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;box-shadow:var(--sh)}
+  .hero .photo::after{content:"";position:absolute;left:-14px;bottom:-14px;width:120px;height:120px;background:var(--navy);border-radius:14px;z-index:-1}
+  @media(max-width:880px){.hero .grid{grid-template-columns:1fr;gap:40px}.hero .photo{max-width:360px}}
+
+  /* STATS BAND (navy color block) */
+  .statband{margin-top:84px;background:var(--navy);color:#fff}
+  .statband .g{display:grid;grid-template-columns:repeat(4,1fr)}
+  .statband .s{padding:40px 28px;border-right:1px solid rgba(255,255,255,.12)}
+  .statband .s:last-child{border-right:none}
+  .statband .s .v{font-family:var(--num);font-size:clamp(34px,3.6vw,46px);font-weight:600;line-height:1;letter-spacing:.01em}
+  .statband .s .v small{font-family:var(--sans);font-size:.36em;font-weight:700;color:#9fb4d0;margin-left:3px}
+  .statband .s .c{font-size:12px;color:rgba(255,255,255,.7);margin-top:13px;line-height:1.6;letter-spacing:0}
+  @media(max-width:760px){.statband .g{grid-template-columns:1fr 1fr}.statband .s:nth-child(2){border-right:none}.statband .s{border-bottom:1px solid rgba(255,255,255,.12)}}
+
+  section{position:relative}
+  .pad{padding:104px 0}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* 01 PROBLEM (blocks) */
+  .problem{background:var(--paper)}
+  .problem h2{font-size:clamp(23px,2.7vw,36px);line-height:1.55;max-width:880px;margin-bottom:50px}
+  .problem h2 em{font-style:normal;color:var(--accent)}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pcard{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:32px 28px;box-shadow:var(--sh)}
+  .pcard .tag{display:inline-block;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--tint);padding:5px 12px;border-radius:6px;margin-bottom:18px}
+  .pcard h3{font-size:19px;line-height:1.5;font-weight:700;margin-bottom:12px}
+  .pcard p{font-size:14.5px;color:var(--mute);line-height:1.9}
+  @media(max-width:820px){.pgrid{grid-template-columns:1fr}}
+
+  /* 02 POSITIONING */
+  .pos{background:var(--tint)}
+  .pos h2{margin-bottom:46px;max-width:760px}
+  .pos .rows{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
+  .pos .row{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:22px;padding:22px 30px;border-bottom:1px solid var(--line-2)}
+  .pos .row:last-child{border-bottom:none}
+  .pos .row .i{font-family:var(--num);font-size:16px;color:var(--mute);font-weight:600}
+  .pos .row .nm{font-size:17px;font-weight:500;color:var(--mute)}
+  .pos .row .ds{font-size:13.5px;color:var(--mute);text-align:right;max-width:300px;line-height:1.6}
+  .pos .row.yes{background:var(--navy);color:#fff;padding:28px 30px}
+  .pos .row.yes .i{color:#9fb4d0}
+  .pos .row.yes .nm{color:#fff;font-size:20px;font-weight:700}
+  .pos .row.yes .ds{color:rgba(255,255,255,.82)}
+  @media(max-width:760px){.pos .row{grid-template-columns:auto 1fr}.pos .row .ds{display:none}}
+
+  /* 03 RESULTS (blocks) */
+  .results{background:var(--paper)}
+  .results .head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:22px;margin-bottom:50px}
+  .results h2{font-size:clamp(23px,2.7vw,36px)}
+  .results .note{font-size:12.5px;color:var(--mute);max-width:330px;line-height:1.7;text-align:right}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .fig{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:34px 30px;box-shadow:var(--sh);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+  .fig:hover{transform:translateY(-4px);box-shadow:var(--sh-h)}
+  .fig .v{font-family:var(--num);font-size:clamp(40px,4.3vw,54px);font-weight:600;color:var(--navy);line-height:1;letter-spacing:.01em;display:flex;align-items:baseline;gap:4px}
+  .fig .v small{font-family:var(--sans);font-size:.28em;font-weight:700;color:var(--accent)}
+  .fig .v .ar{font-family:var(--sans);font-size:.4em;color:var(--accent);margin:0 5px}
+  .fig .c{font-size:14px;color:var(--mute);margin-top:16px;line-height:1.85}
+  .fig .c b{color:var(--ink);font-weight:700}
+  @media(max-width:820px){.figs{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.figs{grid-template-columns:1fr}}
+
+  /* CASES (blocks) */
+  .cases{background:var(--paper)}
+  .cases h2{font-size:clamp(23px,2.7vw,36px);margin-bottom:46px}
+  .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .ccard{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:30px 28px;box-shadow:var(--sh);display:flex;flex-direction:column}
+  .ccard .cind{font-family:var(--num);font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:18px}
+  .ccard .cl{font-size:14px;color:var(--mute);line-height:1.85;margin-bottom:14px}
+  .ccard .cl b{display:block;font-size:12px;color:var(--navy);font-weight:700;margin-bottom:4px;letter-spacing:.02em}
+  .ccard .cr{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-2)}
+  .ccard .cr .v{font-family:var(--num);font-size:clamp(30px,3vw,38px);font-weight:600;color:var(--navy);line-height:1}
+  .ccard .cr .rl{font-size:12.5px;color:var(--mute);margin-top:6px}
+  .cnote{font-size:12px;color:var(--mute);margin-top:22px}
+  @media(max-width:820px){.case-grid{grid-template-columns:1fr}}
+
+  /* 04 SERVICES (blocks) */
+  .services{background:var(--tint)}
+  .services .top{max-width:760px;margin-bottom:36px}
+  .services .top h2{font-size:clamp(23px,2.7vw,36px);margin-bottom:18px}
+  .services .top p{font-size:16px;color:var(--mute);line-height:1.95}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .svc{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:34px 30px;display:flex;flex-direction:column;box-shadow:var(--sh);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+  .svc:hover{transform:translateY(-5px);box-shadow:var(--sh-h)}
+  .svc .no{font-family:var(--num);font-size:16px;color:var(--accent);font-weight:600;letter-spacing:.06em;margin-bottom:16px}
+  .svc h3{font-size:20px;line-height:1.45;margin-bottom:10px}
+  .svc .price{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px}
+  .svc .price small{font-weight:400;font-size:12.5px;color:var(--mute)}
+  .svc ul{list-style:none;margin-top:auto;padding-top:20px;border-top:1px solid var(--line-2)}
+  .svc li{font-size:14px;color:var(--mute);padding:7px 0 7px 20px;position:relative;line-height:1.7}
+  .svc li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:8px;border:2px solid var(--accent);border-radius:50%}
+  @media(max-width:820px){.svc-grid{grid-template-columns:1fr}}
+  .ai-band{margin-top:22px;background:var(--navy);color:#fff;padding:50px 46px;border-radius:16px}
+  .ai-band .lab{font-size:12px;font-weight:700;letter-spacing:.12em;color:#9fb4d0}
+  .ai-band p{font-size:clamp(18px,2.1vw,26px);line-height:1.7;margin-top:16px;max-width:880px;font-weight:700;color:#fff}
+  .ai-band p em{font-style:normal;color:#bcd3ef;border-bottom:2px solid rgba(188,211,239,.45);padding-bottom:2px}
+
+  /* 05 PROCESS */
+  .process{background:var(--paper)}
+  .process h2{font-size:clamp(23px,2.7vw,36px);margin-bottom:54px;max-width:660px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .step{background:var(--tint);border-radius:14px;padding:30px 26px}
+  .step .n{font-family:var(--num);font-size:30px;font-weight:600;color:var(--accent);line-height:1}
+  .step h4{font-size:17.5px;margin:16px 0 11px;line-height:1.5}
+  .step p{font-size:13.5px;color:var(--mute);line-height:1.85}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+  /* 06 FOUNDER */
+  .founder{background:var(--tint)}
+  .founder .inner{display:grid;grid-template-columns:4.2fr 7.8fr;gap:60px;align-items:start}
+  .founder .meta{position:sticky;top:100px}
+  .founder .meta .pic{position:relative;margin-bottom:26px}
+  .founder .meta .pic img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:var(--sh)}
+  .founder .meta .nm{font-size:24px;font-weight:700;color:var(--ink);line-height:1.4}
+  .founder .meta .nm small{display:block;font-family:var(--num);font-size:15px;color:var(--mute);font-weight:500;margin-top:6px;letter-spacing:.05em}
+  .founder .meta .role{font-size:14.5px;color:var(--accent);margin-top:13px;font-weight:700}
+  .founder .meta .facts{margin-top:24px;border-top:1px solid var(--line)}
+  .founder .meta .facts div{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;color:var(--mute);padding:12px 0;border-bottom:1px solid var(--line-2)}
+  .founder .meta .facts div b{color:var(--ink);font-weight:700;text-align:right}
+  .founder .bio h2{font-size:clamp(21px,2.5vw,31px);line-height:1.55;margin-bottom:28px}
+  .founder .bio p{font-size:16px;color:var(--text);line-height:2.1;margin-bottom:22px}
+  .founder .bio p b{font-weight:700;color:var(--ink)}
+  .founder .pr{margin-top:36px;border-top:2px solid var(--navy)}
+  .founder .pr .p{padding:24px 0;border-bottom:1px solid var(--line-2);display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:baseline}
+  .founder .pr .p .q{font-family:var(--num);color:var(--accent);font-size:18px;font-weight:600}
+  .founder .pr .p .tx{font-size:17px;font-weight:700;color:var(--ink);line-height:1.6}
+  .founder .pr .p .tx span{display:block;font-size:13.5px;font-weight:400;color:var(--mute);margin-top:8px;line-height:1.85}
+  @media(max-width:880px){.founder .inner{grid-template-columns:1fr;gap:42px}.founder .meta{position:relative;top:0}.founder .meta .pic{max-width:340px}}
+
+  /* 07 CTA (navy block) */
+  .cta{background:var(--navy);color:#fff}
+  .cta .inner{max-width:700px}
+  .cta .label{font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#9fb4d0}
+  .cta h2{color:#fff;font-size:clamp(25px,3.4vw,44px);line-height:1.5;margin:22px 0 0}
+  .cta p{color:rgba(255,255,255,.85);font-size:16.5px;margin:26px 0 0;max-width:560px;line-height:2}
+  .cta .actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:40px}
+  .cta .btn-fill{background:#fff;color:var(--navy);border-color:#fff}
+  .cta .btn-fill:hover{background:#eef2f7}
+  .cta .link{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
+  .cta .fine{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6)}
+
+  footer{background:#10192a;color:rgba(255,255,255,.6);padding:54px 0 38px}
+  footer .row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px}
+  footer .brand{font-weight:700;font-size:19px;color:#fff}
+  footer .brand .sub{display:block;font-size:12px;color:#9fb4d0;margin-top:6px;font-weight:500}
+  footer .col{font-size:13.5px;line-height:2.05}
+  footer .col b{color:#fff;font-weight:700;display:block;margin-bottom:8px;font-size:12px;letter-spacing:.04em}
+  footer .col a:hover{color:#9fb4d0}
+  footer .legal{margin-top:42px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:11.5px;color:rgba(255,255,255,.4)}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fade,.reveal{opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#top">COO株式会社<span class="sub">事業責任者代行</span></a>
+  <div class="navlinks">
+    <a href="#problem">課題</a>
+    <a href="#approach">提供価値</a>
+    <a href="#results">実績</a>
+    <a href="#cases">事例</a>
+    <a href="#services">サービス</a>
+    <a href="#founder">代表</a>
+  </div>
+  <a class="nav-cta" href="#contact">無料相談</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="label fade">COO代行・CMO代行 ／ AI × COO</div>
+        <h1>
+          <span class="l fade"><span style="word-break:keep-all;overflow-wrap:anywhere">戦略の​立案から、​実行まで。</span></span>
+          <span class="l fade"><span style="word-break:keep-all;overflow-wrap:anywhere">事業責任者を、​代行します。</span></span>
+        </h1>
+        <p class="lead fade"><span style="word-break:keep-all;overflow-wrap:anywhere">月商1億円の​事業を​育てたCOOが、​社外から​事業責任者と​して​入ります。<b>​戦略の​立案から​現場での​実行、​AIを​使った​業務改善まで​一貫して​担当。</b>​美容・​D2C・クリニックを​中心に、​採用より​速く、​助言で​終わる​コンサルより​深く​踏み込みます。</span></p>
+        <div class="actions fade">
+          <a class="btn btn-fill" href="#contact">無料相談​（30分）</a>
+          <a class="link" href="#results">支援実績を​見る​ →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="statband fade">
+    <div class="wrap">
+      <div class="g">
+        <div class="s"><div class="v">1<small>億円</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">通帳残高40万円の​会社を、​参画から​1年で​月商1億へ​（17kg）</span></div></div>
+        <div class="s"><div class="v">×10<small>倍</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">D2Cアパレルの​売上</span></div></div>
+        <div class="s"><div class="v">0.4→4.6<small>%</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">FMCGの​市場シェア​（取扱店舗 3,000→6,000）</span></div></div>
+        <div class="s"><div class="v">2<small>億円</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">Webメディア事業の​累計営業利益</span></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 PROBLEM -->
+<section class="problem pad" id="problem">
+  <div class="wrap reveal">
+    <div class="marker"><span class="n">01</span> 課題</div>
+    <h2><span style="word-break:keep-all;overflow-wrap:anywhere">戦略は​あっても、​それを<em>​実行する​人</em>が​社内に​いない。</span></h2>
+    <div class="pgrid">
+      <div class="pcard"><span class="tag">採用では</span><h3><span style="word-break:keep-all;overflow-wrap:anywhere">重く、​時間が​かかる</span></h3><p><span style="word-break:keep-all;overflow-wrap:anywhere">経営を​任せられる​人材の​採用は​半年単位。​年収も​固定費も​重く、​事業の​スピードに​人の​採用が​追いつきません。</span></p></div>
+      <div class="pcard"><span class="tag">コンサルでは</span><h3><span style="word-break:keep-all;overflow-wrap:anywhere">助言で​終わる</span></h3><p><span style="word-break:keep-all;overflow-wrap:anywhere">資料と​提案は​出てきても、​実行は​別の​問題。​「誰が​手を​動かすのか」が​決まらず、​施策が​動き出しません。</span></p></div>
+      <div class="pcard"><span class="tag">AI導入だけでは</span><h3><span style="word-break:keep-all;overflow-wrap:anywhere">売上に​直結しない</span></h3><p><span style="word-break:keep-all;overflow-wrap:anywhere">ツールを​入れても、​何を​変えれば​利益が​増えるのか。​その​経営判断が​できる​人が​いなければ、​成果は​出ません。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 POSITIONING -->
+<section class="pos pad" id="approach">
+  <div class="wrap reveal">
+    <div class="marker"><span class="n">02</span> 提供する​価値</div>
+    <h2 class="display"><span style="word-break:keep-all;overflow-wrap:anywhere">経営判断から​実装まで、​一人で​担います。</span></h2>
+    <div class="rows">
+      <div class="row"><span class="i">01</span><span class="nm">正社員の​CxO採用</span><span class="ds">固定費が​重く、​立ち上げに​時間が​かかる</span></div>
+      <div class="row"><span class="i">02</span><span class="nm">戦略コンサル</span><span class="ds">助言と​資料で​終わり、​実行は​別問題に​なる</span></div>
+      <div class="row"><span class="i">03</span><span class="nm">AI導入ベンダー</span><span class="ds">ツール導入が​目的化し、​利益に​直結しない</span></div>
+      <div class="row yes"><span class="i">→</span><span class="nm">事業責任者代行​（AI × COO）</span><span class="ds">経営判断から​AIに​よる​実装までを​一貫して​担当</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 RESULTS -->
+<section class="results pad" id="results">
+  <div class="wrap reveal">
+    <div class="head">
+      <div><div class="marker"><span class="n">03</span> 支援実績</div><h2>これまでの​支援実績</h2></div>
+      <p class="note"><span style="word-break:keep-all;overflow-wrap:anywhere">17kg COO期および​現COO株式会社での​実績の​一部​（公開情報ベース）。​守秘の​都合に​より、​事業名は​記載していません。</span></p>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="v">×10<small>倍</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere"><b>D2Cアパレルの​売上</b>を、​販売構造の​組み替えで​10倍に。</span></div></div>
+      <div class="fig"><div class="v">1<small>億円</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">通帳残高40万円の​会社で、​参画から​1年で<b>​月商1億円</b>を​達成​（17kg）。</span></div></div>
+      <div class="fig"><div class="v">0.4<span class="ar">→</span>4.6<small>%</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere"><b>FMCGの​市場シェア</b>を​11倍超に。​取扱店舗も​3,000→6,000店へ​拡大。</span></div></div>
+      <div class="fig"><div class="v">2<small>億円</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">Webメディア事業で<b>​累計営業利益</b>を​創出。</span></div></div>
+      <div class="fig"><div class="v">37<small>万</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">同事業の<b>​Xフォロワー</b>を​構築。​SNS起点の​集客を​設計。</span></div></div>
+      <div class="fig"><div class="v">100<small>万+</small></div><div class="c"><span style="word-break:keep-all;overflow-wrap:anywhere">上場EC企業で<b>​SNS総フォロワー</b>。​年間インプレッション1億超。</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CASES -->
+<section class="cases pad" id="cases">
+  <div class="wrap reveal">
+    <div class="marker"><span class="n">04</span> 支援事例</div>
+    <h2 class="title">課題に、​実際どう​入ったか。</h2>
+    <div class="case-grid">
+      <div class="ccard">
+        <div class="cind">CASE 01 ／ D2Cアパレル​（17kg）</div>
+        <div class="cl"><b>課題</b>月商1,000万円・通帳残高40万円で​停滞。​広告予算も​ない​状態。</div>
+        <div class="cl"><b>打ち手</b>インフルエンサーへの​ギフティングと​SNS起点の​販売を​設計。​在庫を​持たず​高速で​検証した。</div>
+        <div class="cr"><div class="v">月商1億円</div><div class="rl">COO参画から​1年で​達成</div></div>
+      </div>
+      <div class="ccard">
+        <div class="cind">CASE 02 ／ FMCG​（消費財）</div>
+        <div class="cl"><b>課題</b>市場シェア0.4%・取扱3,000店舗で​頭打ち。​認知も​伸び悩み。</div>
+        <div class="cl"><b>打ち手</b>広告と​インフルエンサー施策を​統合し、​CPAを​改善しながら​配荷を​拡大。</div>
+        <div class="cr"><div class="v">シェア4.6%</div><div class="rl">取扱店舗 3,000→6,000へ</div></div>
+      </div>
+      <div class="ccard">
+        <div class="cind">CASE 03 ／ Webメディア事業</div>
+        <div class="cl"><b>課題</b>SNS起点の​集客と​収益化の​型が​定まっていない。</div>
+        <div class="cl"><b>打ち手</b>X中心の​メディア設計と、​商品化までの​導線を​構築。</div>
+        <div class="cr"><div class="v">営業利益2億円</div><div class="rl">累計／Xフォロワー37万を​構築</div></div>
+      </div>
+    </div>
+    <p class="cnote">※ 守秘の​都合に​より​事業名は​記載していません。​数値は​公開情報および本人取材に​基づきます。</p>
+  </div>
+</section>
+
+<!-- 05 SERVICES -->
+<section class="services pad" id="services">
+  <div class="wrap reveal">
+    <div class="top">
+      <div class="marker"><span class="n">05</span> サービス</div>
+      <h2><span style="word-break:keep-all;overflow-wrap:anywhere">事業の​フェーズに​合わせた、​3つの​関わり方。</span></h2>
+      <p><span style="word-break:keep-all;overflow-wrap:anywhere">共通する​方​針は、​KPIを​1部署あたり1〜2個に​絞る​こと。​横文字の​目標を​並べず、​その月の​利益に​直結する​打ち手から、​優先順位を​つけて​実行します。</span></p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><div class="no">01</div><h3><span style="word-break:keep-all;overflow-wrap:anywhere">COO代行​（事業責任者支援）</span></h3><div class="price">月額 50万円〜 <small>／ 週1日〜</small></div>
+        <ul><li><span style="word-break:keep-all;overflow-wrap:anywhere">戦略設計と​意思決定​その​ものを​代行</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">上場企業の​子会社から​中堅・新規事業まで</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">現場が​自走できる​仕組みまで​構築</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">AIを​使った​業務改善を​実装に​織り込む</span></li></ul></div>
+      <div class="svc"><div class="no">02</div><h3><span>顧問・戦略アドバイザリー</span></h3><div class="price">月額 30万円〜 <small>／ 週1定例＋チャット</small></div>
+        <ul><li><span style="word-break:keep-all;overflow-wrap:anywhere">マーケティング予算を​数字で​診断</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">広告代理店・ASP・インフルエンサーの​人脈を​提供</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">意思決定の​壁打ち相手と​して​伴走</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">自走できる​体制を​構築</span></li></ul></div>
+      <div class="svc"><div class="no">03</div><h3><span>広告・インフルエンサー運用支援</span></h3><div class="price">要相談 <small>／ CMO代行</small></div>
+        <ul><li><span style="word-break:keep-all;overflow-wrap:anywhere">美容・​クリニック・D2Cに​特化</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">広告と​インフルエンサー施策を​統合</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">再現性の​ある​プロセスで​CPAを​改善</span></li><li><span style="word-break:keep-all;overflow-wrap:anywhere">動画広告・クリエイティブの​設計</span></li></ul></div>
+    </div>
+    <div class="ai-band">
+      <div class="lab">AIの​位置づけ</div>
+      <p><span style="word-break:keep-all;overflow-wrap:anywhere">AIは​目的ではなく、<em>​手段</em>です。​営業の​リスト作成・企業リサーチ・提案文の​作成・商談準備までを​自動化し、​空いた​時間を​「事業を​伸ばす判断」に​充てます。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PROCESS -->
+<section class="process pad">
+  <div class="wrap reveal">
+    <div class="marker"><span class="n">06</span> 進め方</div>
+    <h2>ご相談から​実装までの​流れ</h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h4><span>無料相談</span></h4><p><span style="word-break:keep-all;overflow-wrap:anywhere">30分で​現状の​数字と​組織を​うかが​い、​お互いの​相性も​確認します。</span></p></div>
+      <div class="step"><div class="n">02</div><h4><span style="word-break:keep-all;overflow-wrap:anywhere">構造の​棚卸し</span></h4><p><span style="word-break:keep-all;overflow-wrap:anywhere">利益が​出ている​オペレーションと​出ていない​ものを​可視化し、​課題を​特定します。</span></p></div>
+      <div class="step"><div class="n">03</div><h4><span style="word-break:keep-all;overflow-wrap:anywhere">打ち手の​優先順位</span></h4><p><span style="word-break:keep-all;overflow-wrap:anywhere">KPIを​1部​署1〜2個に​絞り、​利益に​直結する​施策から​着手します。</span></p></div>
+      <div class="step"><div class="n">04</div><h4><span style="word-break:keep-all;overflow-wrap:anywhere">実装まで​伴走</span></h4><p><span style="word-break:keep-all;overflow-wrap:anywhere">AIと​現場を​組み合わせて​実装。​固定費を​増や​さず、​変動費で​回す設計にします。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 FOUNDER -->
+<section class="founder pad" id="founder">
+  <div class="wrap reveal">
+    <div class="inner">
+      <div class="meta">
+        <div class="pic"><img src="assets/akiyama.jpg" alt="秋山洋晃 COO株式会社代表"></div>
+        <div class="nm">秋山 洋晃<small>Hiroaki Akiyama</small></div>
+        <div class="role">COO株式会社 代表取締役</div>
+        <div class="facts">
+          <div><span>専門</span><b>COO代行・CMO代行</b></div>
+          <div><span>注力領域</span><b>美容・​D2C・クリニック</b></div>
+          <div><span>X / @akky0429</span><b>フォロワー約1.1万</b></div>
+          <div><span>本拠</span><b>東京・渋谷</b></div>
+        </div>
+      </div>
+      <div class="bio">
+        <h2><span style="word-break:keep-all;overflow-wrap:anywhere">「実行する​人」と​して、​数字を​つくってきました。</span></h2>
+        <p><span style="word-break:keep-all;overflow-wrap:anywhere">24歳の​とき、​月商1,000万円・通帳残高40万円の​アパレル企業に​COOと​して​参画しました。​インフルエンサーを​起点とした​販売の​仕組みを​設計し、<b>​参画から​1年で​月商1億円</b>を​達成。​当時まだ​一般的でなかった​ギフティングと​SNS起点の​販売を、​現場で​組み上げてきました。</span></p>
+        <p><span style="word-break:keep-all;overflow-wrap:anywhere">70人規模に​なっても​オフィスは​マンション一室。<b>​固定費を​徹底して​変動費に​変える</b>​経営方​針で、​薄利でも​黒字を​切らさない​事業設計を​貫いてきました。​現在は​COO株式会社の​代表と​して、<b>​美容・​D2C・クリニック</b>を​中心に、​COO代行・CMO代行・顧問と​して​複数社の​事業に​入っています。</span></p>
+        <div class="pr">
+          <div class="p"><span class="q">01</span><div class="tx"><span style="word-break:keep-all;overflow-wrap:anywhere">KPIは、​1部署に​1〜2個まで</span><span><span style="word-break:keep-all;overflow-wrap:anywhere">「その​月に​いくら利益が​出たか」を​基準に​置き、​目標を​増やしすぎない。</span></span></div></div>
+          <div class="p"><span class="q">02</span><div class="tx"><span style="word-break:keep-all;overflow-wrap:anywhere">固定費を、​変動費に​変える</span><span><span style="word-break:keep-all;overflow-wrap:anywhere">「この​状態は​続かない」前提で、​撤退ラインまで​先に​設計しておく。</span></span></div></div>
+          <div class="p"><span class="q">03</span><div class="tx"><span style="word-break:keep-all;overflow-wrap:anywhere">現場の​ハードワーカーと​組む</span><span><span style="word-break:keep-all;overflow-wrap:anywhere">自分が​全部は​やらない。​現場と​分担し、​全体の​コストを​抑えて​成果を​出す。</span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 CTA -->
+<section class="cta pad" id="contact">
+  <div class="wrap">
+    <div class="inner">
+      <div class="label">無料経営相談</div>
+      <h2><span style="word-break:keep-all;overflow-wrap:anywhere">現状を​お聞か​せください。</span></h2>
+      <p><span style="word-break:keep-all;overflow-wrap:anywhere">現在の​数字と​組織を​うかが​い、​利益を​伸ば​すための​打ち手を​一緒に​整理します。​その​場で​売り込みは​しません。​お役に​立てないと​判断した​場合は、​その​理由を​お伝えして​終わりにします。</span></p>
+      <div class="actions">
+        <a class="btn btn-fill" href="https://x.com/akky0429" target="_blank" rel="noopener">Xの​DMで​相談する</a>
+        <a class="link" href="https://note.com/akky0429" target="_blank" rel="noopener">noteで​実績を​見る​ →</a>
+      </div>
+      <p class="fine"><span style="word-break:keep-all;overflow-wrap:anywhere">美容・​クリニック・D2C・インフルエンサーマーケティングを​中心に、​業種を​問わず​ご相談を​承ります。</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div><div class="brand">COO株式会社<span class="sub">事業責任者代行 ／ AI × COO</span></div></div>
+      <div class="col"><b>SERVICE</b><a href="#services">COO代行​（事業責任者支援）</a><br><a href="#services">顧問・戦略アドバイザリー</a><br><a href="#services">広告・インフルエンサー運用支援</a></div>
+      <div class="col"><b>COMPANY</b>COO株式会社<br>2018年11月設立<br>東京都渋谷区</div>
+      <div class="col"><b>CONTACT</b><a href="https://x.com/akky0429" target="_blank" rel="noopener">X / @akky0429</a><br><a href="https://note.com/akky0429" target="_blank" rel="noopener">note / @akky0429</a></div>
+    </div>
+    <div class="legal"><span>© 2026 COO株式会社</span><span>事業を​伸ばす、​第3の​選択肢。</span></div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>{nav.classList.toggle('scrolled',window.scrollY>30)};
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
