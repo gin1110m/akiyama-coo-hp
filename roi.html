@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     【DRAFT — 秋山さん確認前提】この特典LPはドラフトです。公開前に秋山洋晃さん本人が、
+     実績数値表記（10×／300%／2億／15社・7年）・コピー・肩書（COO株式会社 代表取締役／CMO代行）を
+     最終チェックすること。特典・オファーは秋山さんの土俵のため、本人承認なしに公開しないこと。
+     ※この注記はHTMLコメントのため公開ページには表示されません。
+============================================================================ -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI導入 ROI試算シート ｜ 営業前工程の自動化で生まれるコスト削減ポテンシャル</title>
+<meta name="description" content="営業・バックオフィスの「商談以外の業務」をAI化すると、年間どれだけのコストが削減できるか。人数・年収・業務割合を入れるだけで、削減ポテンシャルをその場で試算します。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#16273f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --tint:#eef2f7;
+    --tint-2:#e7ecf3;
+    --navy:#16273f;
+    --navy-2:#1f3957;
+    --ink:#1a1c21;
+    --text:#3b3f47;
+    --mute:#6f7681;
+    --accent:#2f5d96;
+    --line:rgba(22,39,63,.14);
+    --line-2:rgba(22,39,63,.08);
+    --sans:"Noto Sans JP",sans-serif;
+    --num:"Barlow Condensed",sans-serif;
+    --sh:0 1px 2px rgba(22,39,63,.05),0 16px 36px -22px rgba(22,39,63,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans);color:var(--text);font-weight:400;font-size:16px;line-height:1.9;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:.01em;
+    word-break:keep-all;overflow-wrap:anywhere;
+    /* 単色フラット回避: 微グラデ + SVGノイズ */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(1200px 520px at 50% -8%, rgba(47,93,150,.07), rgba(47,93,150,0) 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment:fixed,scroll;
+  }
+  ::selection{background:var(--navy);color:#fff}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .num{font-family:var(--num)}
+  h1,h2,h3,h4{color:var(--ink);font-weight:700;letter-spacing:-.005em}
+
+  /* ===== HEADER ===== */
+  header.top{
+    background:var(--navy);color:#fff;
+    padding:calc(28px + env(safe-area-inset-top)) 0 30px;
+  }
+  header.top .label{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11.5px;font-weight:700;letter-spacing:.13em;color:#9fb4d0;margin-bottom:16px;
+  }
+  header.top .label::before{content:"";width:22px;height:2px;background:var(--accent);opacity:.85;display:inline-block}
+  header.top h1{
+    color:#fff;font-size:clamp(23px,6.6vw,30px);line-height:1.5;font-weight:700;letter-spacing:-.01em;
+  }
+  header.top h1 em{font-style:normal;color:#fff;border-bottom:3px solid var(--accent);padding-bottom:2px}
+  header.top p{
+    margin-top:16px;font-size:14px;line-height:1.95;color:rgba(255,255,255,.82);font-weight:400;
+  }
+  header.top p b{color:#fff;font-weight:700}
+
+  /* ===== SECTIONS ===== */
+  main{padding:30px 0 0}
+  .sec{margin-bottom:26px}
+  .sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:18px}
+  .sec-head .n{font-family:var(--num);font-size:18px;font-weight:600;color:var(--accent);line-height:1}
+  .sec-head h2{font-size:17px;font-weight:700;line-height:1.4}
+  .sec-head .n::after{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);opacity:.4;margin:0 0 4px 9px;vertical-align:middle}
+
+  /* ===== INPUT CARD ===== */
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:0;box-shadow:var(--sh)}
+  .field{padding:20px 20px 22px;border-bottom:1px solid var(--line-2)}
+  .field:last-child{border-bottom:none}
+  .field .q{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .field .q .qt{flex:1}
+  .field label{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.5}
+  .field .hint{display:block;font-size:12px;color:var(--mute);font-weight:400;margin-top:5px;line-height:1.65}
+  .field .valbox{
+    flex-shrink:0;display:flex;align-items:baseline;gap:5px;
+    background:var(--tint);border:1px solid var(--line-2);padding:6px 10px;border-radius:6px;min-width:96px;justify-content:flex-end;
+  }
+  .field .valbox input[type=number]{
+    width:62px;border:none;background:transparent;text-align:right;
+    font-family:var(--num);font-size:24px;font-weight:600;color:var(--navy);line-height:1;
+    -moz-appearance:textfield;
+  }
+  .field .valbox input[type=number]::-webkit-outer-spin-button,
+  .field .valbox input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .field .valbox input[type=number]:focus{outline:none}
+  .field .valbox .u{font-size:12.5px;font-weight:700;color:var(--mute);font-family:var(--sans)}
+
+  /* RANGE */
+  .rng{margin-top:16px}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:0;
+    background:var(--tint-2);outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;
+    background:var(--navy);border:3px solid var(--paper);box-shadow:0 2px 6px rgba(22,39,63,.3);cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:26px;height:26px;border-radius:50%;background:var(--navy);
+    border:3px solid var(--paper);box-shadow:0 2px 6px rgba(22,39,63,.3);cursor:pointer;
+  }
+  .rng .ends{display:flex;justify-content:space-between;font-family:var(--num);font-size:13px;font-weight:600;color:var(--mute);margin-top:9px;letter-spacing:.02em}
+
+  /* ===== RESULT ===== */
+  .result{
+    background:var(--navy);color:#fff;border-radius:0;padding:32px 24px 30px;
+    box-shadow:0 2px 4px rgba(22,39,63,.1),0 26px 56px -26px rgba(22,39,63,.5);
+    position:sticky;bottom:0;z-index:5;margin-top:30px;
+  }
+  .result .rl{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:700;letter-spacing:.12em;color:#9fb4d0;margin-bottom:14px;
+  }
+  .result .rl::before{content:"";width:20px;height:2px;background:var(--accent);display:inline-block}
+  .result .big{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px;line-height:.98}
+  .result .big .pre{font-size:15px;font-weight:500;color:rgba(255,255,255,.8);align-self:center}
+  .result .big .v{
+    font-family:var(--num);font-size:clamp(58px,17vw,86px);font-weight:700;color:#fff;letter-spacing:.005em;
+    transition:color .15s ease;
+  }
+  .result .big .v.flash{color:#9fb4d0}
+  .result .big .u{font-size:24px;font-weight:700;color:#fff;font-family:var(--sans)}
+  .result .big .y{font-size:15px;font-weight:500;color:rgba(255,255,255,.8);align-self:center;width:100%;margin-top:2px}
+  .result .sub{
+    margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);
+    font-size:13.5px;line-height:1.85;color:rgba(255,255,255,.82);
+  }
+  .result .sub b{color:#fff;font-weight:700}
+  .result .break{display:flex;gap:0;margin-top:18px;border:1px solid rgba(255,255,255,.16)}
+  .result .break .bk{flex:1;padding:13px 12px;border-right:1px solid rgba(255,255,255,.16)}
+  .result .break .bk:last-child{border-right:none}
+  .result .break .bk .bv{font-family:var(--num);font-size:21px;font-weight:600;color:#fff;line-height:1}
+  .result .break .bk .bc{font-size:10.5px;color:rgba(255,255,255,.62);margin-top:7px;line-height:1.45;letter-spacing:.01em}
+
+  /* ===== LOGIC NOTE ===== */
+  .logic{background:var(--tint);border:1px solid var(--line-2);padding:20px 20px 22px;margin-top:26px}
+  .logic h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px}
+  .logic .step{display:flex;gap:11px;font-size:13px;line-height:1.7;color:var(--text);padding:7px 0;border-bottom:1px dashed var(--line-2)}
+  .logic .step:last-of-type{border-bottom:none}
+  .logic .step .si{font-family:var(--num);font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;width:18px;line-height:1.5}
+  .logic .step b{color:var(--ink);font-weight:700}
+  .logic .disc{font-size:12px;color:var(--mute);line-height:1.75;margin-top:14px;padding-top:13px;border-top:1px solid var(--line-2)}
+
+  /* ===== CTA ===== */
+  .cta{background:var(--navy-2);color:#fff;padding:34px 24px;margin-top:26px;text-align:center}
+  .cta h2{color:#fff;font-size:19px;line-height:1.55;font-weight:700;margin-bottom:8px}
+  .cta p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:22px}
+  .cta .btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+    font-family:var(--sans);font-size:16px;font-weight:700;padding:17px 22px;border-radius:8px;
+    background:#fff;color:var(--navy);border:1.5px solid #fff;cursor:pointer;
+    transition:transform .15s ease,background .15s ease;
+  }
+  .cta .btn:hover{background:#eef2f7;transform:translateY(-2px)}
+  .cta .btn .ar{font-family:var(--num);font-weight:700}
+  .cta .micro{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:14px;line-height:1.7}
+
+  /* ===== CREDIBILITY ===== */
+  .cred{padding:30px 0 8px}
+  .cred .ct{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-align:center;margin-bottom:18px}
+  .cred .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2)}
+  .cred .c{background:var(--paper);padding:20px 12px;text-align:center}
+  .cred .c .v{font-family:var(--num);font-size:clamp(28px,8vw,36px);font-weight:600;color:var(--navy);line-height:1;display:flex;align-items:baseline;justify-content:center;gap:3px}
+  .cred .c .v .ar{font-family:var(--sans);font-size:.42em;font-weight:700;color:var(--accent);margin:0 1px}
+  .cred .c .v small{font-family:var(--sans);font-size:.34em;font-weight:700;color:var(--accent)}
+  .cred .c .l{font-size:11px;color:var(--mute);margin-top:9px;line-height:1.5}
+  .cred .by{font-size:12px;color:var(--mute);text-align:center;line-height:1.85;margin-top:20px}
+  .cred .by b{color:var(--ink);font-weight:700}
+
+  /* ===== FOOTER ===== */
+  footer{background:#10192a;color:rgba(255,255,255,.55);padding:28px 0 calc(30px + env(safe-area-inset-bottom));margin-top:30px}
+  footer .fb{font-weight:700;font-size:16px;color:#fff}
+  footer .fb .s{display:block;font-size:11.5px;color:#9fb4d0;margin-top:5px;font-weight:500}
+  footer .links{display:flex;flex-wrap:wrap;gap:7px 18px;margin-top:16px;font-size:13px}
+  footer .links a{color:rgba(255,255,255,.7)}
+  footer .links a:hover{color:#9fb4d0}
+  footer .legal{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:rgba(255,255,255,.4);line-height:1.7}
+
+  @media(min-width:520px){
+    .result .break .bk .bv{font-size:24px}
+    .field .valbox input[type=number]{font-size:26px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="top">
+  <div class="wrap">
+    <span class="label">AI導入 ROI試算シート</span>
+    <h1>営業前工程を自動化すると、<em>年間いくら</em>のコストが浮くか。</h1>
+    <p>営業マンが商談以外に費やす時間 ── 議事録・提案資料・メール・リスト作成・情報収集。<b>ここをAI化すると生産性は約3倍。</b>その効果を、自社の数字で試算します。</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 入力 -->
+  <section class="sec">
+    <div class="sec-head"><span class="n">01</span><h2>自社の数字を入れる</h2></div>
+    <div class="panel">
+
+      <!-- ① 人数 -->
+      <div class="field">
+        <div class="q">
+          <div class="qt">
+            <label for="n-num">営業・バックオフィスの人数</label>
+            <span class="hint">商談前後の事務作業が発生する人の数</span>
+          </div>
+          <div class="valbox"><input type="number" id="n-num" min="1" max="200" step="1" value="10" inputmode="numeric"><span class="u">人</span></div>
+        </div>
+        <div class="rng">
+          <input type="range" id="r-num" min="1" max="100" step="1" value="10" aria-label="人数">
+          <div class="ends"><span>1</span><span>100+</span></div>
+        </div>
+      </div>
+
+      <!-- ② 年収 -->
+      <div class="field">
+        <div class="q">
+          <div class="qt">
+            <label for="n-salary">一人あたり 平均年収</label>
+            <span class="hint">会社負担の人件費ベース（目安でOK）</span>
+          </div>
+          <div class="valbox"><input type="number" id="n-salary" min="300" max="2000" step="10" value="600" inputmode="numeric"><span class="u">万円</span></div>
+        </div>
+        <div class="rng">
+          <input type="range" id="r-salary" min="300" max="1500" step="10" value="600" aria-label="平均年収">
+          <div class="ends"><span>300</span><span>1,500</span></div>
+        </div>
+      </div>
+
+      <!-- ③ 非コア業務割合 -->
+      <div class="field">
+        <div class="q">
+          <div class="qt">
+            <label for="n-ratio">商談以外の業務に使う時間</label>
+            <span class="hint">議事録・提案資料・メール・リスト作成・情報収集</span>
+          </div>
+          <div class="valbox"><input type="number" id="n-ratio" min="0" max="100" step="5" value="40" inputmode="numeric"><span class="u">%</span></div>
+        </div>
+        <div class="rng">
+          <input type="range" id="r-ratio" min="0" max="100" step="5" value="40" aria-label="商談以外の業務割合">
+          <div class="ends"><span>0%</span><span>100%</span></div>
+        </div>
+      </div>
+
+      <!-- ④ AI削減率 -->
+      <div class="field">
+        <div class="q">
+          <div class="qt">
+            <label for="n-ai">AI化で削減できる割合</label>
+            <span class="hint">その作業のうち、AIに任せられる部分</span>
+          </div>
+          <div class="valbox"><input type="number" id="n-ai" min="0" max="100" step="5" value="60" inputmode="numeric"><span class="u">%</span></div>
+        </div>
+        <div class="rng">
+          <input type="range" id="r-ai" min="0" max="100" step="5" value="60" aria-label="AI削減率">
+          <div class="ends"><span>0%</span><span>100%</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 結果 -->
+  <section class="result" id="result">
+    <span class="rl">試算結果 ／ 年間コスト削減ポテンシャル</span>
+    <div class="big">
+      <span class="pre">年間 約</span><span class="v num" id="out-main">1,400</span><span class="u">万円</span>
+      <span class="y">分の人件費を、他の仕事に回せる計算です。</span>
+    </div>
+    <div class="sub">
+      これは「削った人件費」ではありません。<b>商談以外に消えていた時間をAIで巻き取り、その分を商談・提案・顧客対応に回せる</b>ということ。同じ人数のまま、営業の手数が増えます。
+    </div>
+    <div class="break">
+      <div class="bk"><div class="bv num"><span id="out-total">6,000</span></div><div class="bc">年間 総人件費（万円）</div></div>
+      <div class="bk"><div class="bv num"><span id="out-noncore">2,400</span></div><div class="bc">非コア業務コスト（万円）</div></div>
+      <div class="bk"><div class="bv num"><span id="out-save">1,440</span></div><div class="bc">削減ポテンシャル（万円）</div></div>
+    </div>
+  </section>
+
+  <!-- 計算ロジック -->
+  <section class="logic" id="logic">
+    <h3>この数字の出し方</h3>
+    <div class="step"><span class="si">1</span><span>年間 総人件費 ＝ <b>人数 × 平均年収</b></span></div>
+    <div class="step"><span class="si">2</span><span>非コア業務コスト ＝ <b>総人件費 × 商談以外の業務割合</b></span></div>
+    <div class="step"><span class="si">3</span><span>年間 削減ポテンシャル ＝ <b>非コア業務コスト × AI削減率</b></span></div>
+    <p class="disc">※ これはあくまで簡易試算・推定値です。実際の効果は業務内容・ツールの選定・運用の定着度によって変わります。御社の業務フローに合わせた精密な試算と、何から手をつけるべきかの設計は、無料相談でお出しします。</p>
+  </section>
+
+  <!-- CTA -->
+  <!-- ▼▼ 予約リンク差し込み: 下の href="#" を TimeRex の予約URLに置き換える ▼▼ -->
+  <section class="cta">
+    <h2>自社の精密試算を、30分で。</h2>
+    <p>業務の内訳を一緒に分解し、「どこから自動化すれば一番効くか」を具体的な数字でお出しします。売り込みはしません。</p>
+    <a class="btn" href="#" id="cta-book">無料相談で自社の精密試算をする <span class="ar">→</span></a>
+    <!-- ※ href="#" に TimeRex の予約リンクを差し込む（例: https://timerex.net/s/xxxxx） -->
+    <p class="micro">所要30分／オンライン（Google Meet）／費用なし</p>
+  </section>
+
+  <!-- 信頼づけ -->
+  <section class="cred">
+    <div class="ct">試算する人の実績</div>
+    <div class="grid">
+      <div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を12ヶ月で<br>1,000万→1億に</div></div>
+      <div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br>赤字を黒字化</div></div>
+      <div class="c"><div class="v num">2<small>億</small></div><div class="l">手がけた事業の<br>累計営業利益</div></div>
+    </div>
+    <p class="by"><b>秋山 洋晃</b>（COO株式会社 代表取締役 ／ CMO代行）<br>D2C・EC・FMCG・クリニック・メディアを 15社以上 / 7年以上 支援。</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
+    <div class="links">
+      <a href="https://cooinc.co.jp" target="_blank" rel="noopener">cooinc.co.jp</a>
+      <a href="https://x.com/akky0429" target="_blank" rel="noopener">X / @akky0429</a>
+      <a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
+    </div>
+    <div class="legal">本シートの試算結果は入力値にもとづく簡易的な推定であり、効果を保証するものではありません。<br>© COO Inc. ／ 秋山洋晃</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  function $(id){return document.getElementById(id);}
+
+  // 数値を 1,234 形式に
+  function fmt(v){ return Math.round(v).toLocaleString("ja-JP"); }
+
+  // 値を min/max にクランプ
+  function clamp(v,min,max){ if(isNaN(v)) v=min; return Math.max(min, Math.min(max, v)); }
+
+  var outMain = $("out-main");
+
+  function calc(){
+    var people = clamp(parseFloat($("n-num").value), 1, 200);
+    var salary = clamp(parseFloat($("n-salary").value), 0, 2000); // 万円
+    var ratio  = clamp(parseFloat($("n-ratio").value), 0, 100) / 100;
+    var ai     = clamp(parseFloat($("n-ai").value), 0, 100) / 100;
+
+    var total   = people * salary;       // 年間総人件費（万円）
+    var noncore = total * ratio;         // 非コア業務コスト（万円）
+    var save    = noncore * ai;          // 削減ポテンシャル（万円）
+
+    // メイン数字は読みやすく丸める（100万円単位以上は100で丸め、小規模はそのまま）
+    var mainDisp = save >= 1000 ? Math.round(save/100)*100 : Math.round(save/10)*10;
+
+    // フラッシュアニメーション
+    outMain.classList.add("flash");
+    outMain.textContent = fmt(mainDisp);
+    setTimeout(function(){ outMain.classList.remove("flash"); }, 150);
+
+    $("out-total").textContent   = fmt(total);
+    $("out-noncore").textContent = fmt(noncore);
+    $("out-save").textContent    = fmt(save);
+  }
+
+  // number <-> range 双方向同期
+  function bind(numId, rngId){
+    var num = $(numId), rng = $(rngId);
+    if(!num) return;
+
+    if(rng){
+      rng.addEventListener("input", function(){
+        num.value = rng.value;
+        calc();
+      });
+    }
+    num.addEventListener("input", function(){
+      if(rng){
+        var v = parseFloat(num.value);
+        if(!isNaN(v)){
+          // range の範囲内なら追従、超えたら端で止める
+          var rmin = parseFloat(rng.min), rmax = parseFloat(rng.max);
+          rng.value = Math.max(rmin, Math.min(rmax, v));
+        }
+      }
+      calc();
+    });
+    // フォーカスを外したときに範囲外の値を補正
+    num.addEventListener("blur", function(){
+      var min = parseFloat(num.min), max = parseFloat(num.max);
+      var v = parseFloat(num.value);
+      if(isNaN(v)) v = min;
+      v = Math.max(min, Math.min(max, v));
+      num.value = v;
+      if(rng){
+        var rmin = parseFloat(rng.min), rmax = parseFloat(rng.max);
+        rng.value = Math.max(rmin, Math.min(rmax, v));
+      }
+      calc();
+    });
+  }
+
+  // ※仕様メモ: スライダー上限（人数100／年収1,500万）は実用域の目安として固定。
+  //   数値入力欄は上限を広げてある（人数200／年収2,000万）ため、それ以上の規模は手入力で対応可能。
+  //   手入力でスライダー上限を超えた場合、スライダーは端で止まる（上の bind() 内で clamp 済み・意図的）。
+  bind("n-num",    "r-num");
+  bind("n-salary", "r-salary");
+  bind("n-ratio",  "r-ratio");
+  bind("n-ai",     "r-ai");
+
+  calc();
+})();
+</script>
+
+</body>
+</html>
