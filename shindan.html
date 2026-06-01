@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     【DRAFT — 秋山さん確認前提】この無料AI経営診断ツールはドラフトです。公開前に秋山洋晃さん本人が、
+     設問・コピー・インパクト試算モデルの係数（DIAGNOSIS_SPEC.md §3）・肩書（COO株式会社 代表取締役／CMO代行）・
+     実績数値（10×／300%／2億／15社・7年）を最終チェックすること。試算は必ず「概算」と明記し、煽らないこと。
+     ※この注記はHTMLコメントのため公開ページには表示されません。
+
+     【公開前に差し替える箇所（コード内検索キーワード）】
+       - const ENDPOINT  : bot公開URL（空文字のままなら何もPOSTしない＝単体完結）
+       - href="#BOOKING" : TimeRex 予約URL（例: https://timerex.net/s/xxxxx）
+       - href="#LINE"    : LINE友だち追加URL（例: https://lin.ee/xxxxx）
+============================================================================ -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>無料AI経営診断 ｜ 御社でAIが一番「利益」を生む場所は、どこか。</title>
+<meta name="description" content="30秒で、御社のAI利益ポテンシャルが分かる。営業・マーケ・CS・採用・バックオフィスを診断し、AIで一番利益が増える場所と、その概算インパクトをその場で算出します。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#16273f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --tint:#eef2f7;
+    --tint-2:#e7ecf3;
+    --navy:#16273f;
+    --navy-2:#1f3957;
+    --ink:#1a1c21;
+    --text:#3b3f47;
+    --mute:#6f7681;
+    --accent:#2f5d96;
+    --line:rgba(22,39,63,.14);
+    --line-2:rgba(22,39,63,.08);
+    --sans:"Noto Sans JP",sans-serif;
+    --num:"Barlow Condensed",sans-serif;
+    --sh:0 1px 2px rgba(22,39,63,.05),0 16px 36px -22px rgba(22,39,63,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans);color:var(--text);font-weight:400;font-size:16px;line-height:1.9;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:.01em;
+    word-break:keep-all;overflow-wrap:anywhere;
+    /* 単色フラット回避: 微グラデ + SVGノイズ */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(1200px 560px at 50% -8%, rgba(47,93,150,.07), rgba(47,93,150,0) 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment:fixed,scroll;
+    min-height:100vh;
+  }
+  ::selection{background:var(--navy);color:#fff}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .num{font-family:var(--num)}
+  h1,h2,h3,h4{color:var(--ink);font-weight:700;letter-spacing:-.005em}
+
+  /* ===== PROGRESS BAR (sticky top) ===== */
+  .prog{
+    position:sticky;top:0;z-index:20;background:var(--navy);
+    padding:calc(11px + env(safe-area-inset-top)) 0 11px;
+    box-shadow:0 1px 0 rgba(255,255,255,.06);
+  }
+  .prog .pwrap{max-width:600px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:13px}
+  .prog .pbrand{font-size:11.5px;font-weight:700;letter-spacing:.1em;color:#9fb4d0;white-space:nowrap}
+  .prog .ptrack{flex:1;height:4px;background:rgba(255,255,255,.14);position:relative;overflow:hidden}
+  .prog .pfill{position:absolute;left:0;top:0;height:100%;width:0;background:var(--accent);transition:width .5s cubic-bezier(.16,1,.3,1)}
+  .prog .pnum{font-family:var(--num);font-size:14px;font-weight:600;color:#fff;white-space:nowrap;letter-spacing:.02em}
+  .prog .pnum .ps{color:#9fb4d0;font-size:.78em;margin:0 1px}
+
+  /* ===== STAGE FRAME ===== */
+  main{padding:26px 0 40px}
+  .stage{display:none}
+  .stage.on{display:block;animation:fade .45s cubic-bezier(.16,1,.3,1) both}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ===== INTRO ===== */
+  .intro{text-align:left}
+  .intro .label{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11.5px;font-weight:700;letter-spacing:.13em;color:var(--accent);margin-bottom:18px;
+  }
+  .intro .label::before{content:"";width:22px;height:2px;background:var(--accent);display:inline-block}
+  .intro h1{font-size:clamp(25px,7vw,33px);line-height:1.48;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .intro h1 em{font-style:normal;border-bottom:3px solid var(--accent);padding-bottom:2px}
+  .intro .lead{margin-top:18px;font-size:15px;line-height:1.95;color:var(--text)}
+  .intro .lead b{color:var(--ink);font-weight:700}
+  .intro .meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;
+  }
+  .intro .meta .m{
+    display:flex;align-items:center;gap:8px;background:var(--tint);border:1px solid var(--line-2);
+    padding:9px 13px;font-size:12.5px;font-weight:500;color:var(--text);
+  }
+  .intro .meta .m .mn{font-family:var(--num);font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+
+  /* ===== SECTION HEAD ===== */
+  .sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:7px}
+  .sec-head .n{font-family:var(--num);font-size:18px;font-weight:600;color:var(--accent);line-height:1}
+  .sec-head .n::after{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);opacity:.4;margin:0 0 4px 9px;vertical-align:middle}
+  .sec-head h2{font-size:19px;font-weight:700;line-height:1.4}
+  .sec-sub{font-size:13.5px;color:var(--mute);line-height:1.75;margin-bottom:22px}
+
+  /* ===== ATTR QUESTION (radio pills) ===== */
+  .qblock{margin-bottom:26px}
+  .qblock .qt{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:12px}
+  .qblock .qt .req{font-size:11px;font-weight:700;color:var(--accent);font-family:var(--sans);margin-left:8px;letter-spacing:.04em}
+  .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+  .opts.three{grid-template-columns:repeat(2,1fr)}
+  .opt{
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    min-height:52px;padding:10px 12px;background:var(--paper);
+    border:1.5px solid var(--line);color:var(--text);
+    font-size:14px;font-weight:500;line-height:1.4;cursor:pointer;
+    transition:border-color .15s ease,background .15s ease,color .15s ease;user-select:none;
+  }
+  .opt:hover{border-color:var(--accent)}
+  .opt.sel{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+
+  /* ===== FUNCTION ISSUE CARDS ===== */
+  .fcard{
+    background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh);
+    padding:18px 18px 20px;margin-bottom:16px;
+  }
+  .fcard .fh{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+  .fcard .fh .ftag{
+    font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);
+    background:var(--tint);border:1px solid var(--line-2);padding:3px 9px;white-space:nowrap;
+  }
+  .fcard .fh .ftag.star{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .fcard .fh .fn{font-size:16px;font-weight:700;color:var(--ink);line-height:1.4}
+  .fcard .fd{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lvls{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .lvl{
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    min-height:46px;padding:7px 4px;background:var(--paper);
+    border:1.5px solid var(--line);color:var(--text);
+    font-size:13px;font-weight:600;line-height:1.3;cursor:pointer;
+    transition:border-color .15s ease,background .15s ease,color .15s ease;user-select:none;
+  }
+  .lvl:hover{border-color:var(--accent)}
+  .lvl.sel{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+
+  /* ===== NUMBER INPUTS (sales scale) ===== */
+  .panel{background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh)}
+  .field{padding:20px 20px 22px;border-bottom:1px solid var(--line-2)}
+  .field:last-child{border-bottom:none}
+  .field .q{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .field .q .qtx{flex:1}
+  .field label{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.5}
+  .field .hint{display:block;font-size:12px;color:var(--mute);font-weight:400;margin-top:5px;line-height:1.65}
+  .stepper{flex-shrink:0;display:flex;align-items:stretch;border:1px solid var(--line);background:var(--tint)}
+  .stepper button{
+    width:42px;border:none;background:transparent;color:var(--navy);cursor:pointer;
+    font-family:var(--num);font-size:26px;font-weight:600;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s ease;
+  }
+  .stepper button:hover{background:var(--tint-2)}
+  .stepper button:active{background:var(--line-2)}
+  .stepper .sin{display:flex;align-items:baseline;gap:4px;padding:0 6px;border-left:1px solid var(--line-2);border-right:1px solid var(--line-2);background:var(--paper)}
+  .stepper input[type=number]{
+    width:64px;border:none;background:transparent;text-align:center;
+    font-family:var(--num);font-size:26px;font-weight:600;color:var(--navy);line-height:1;
+    -moz-appearance:textfield;
+  }
+  .stepper input[type=number]::-webkit-outer-spin-button,
+  .stepper input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .stepper input[type=number]:focus{outline:none}
+  .stepper .u{font-size:12.5px;font-weight:700;color:var(--mute);font-family:var(--sans);align-self:center;padding-right:10px}
+
+  /* ===== NAV BUTTONS ===== */
+  .nav{display:flex;gap:11px;margin-top:30px}
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font-family:var(--sans);font-size:16px;font-weight:700;padding:16px 22px;
+    cursor:pointer;border:1.5px solid var(--navy);
+    transition:transform .15s ease,background .15s ease,opacity .15s ease;user-select:none;
+  }
+  .btn .ar{font-family:var(--num);font-weight:700;font-size:1.15em}
+  .btn-primary{flex:1;background:var(--navy);color:#fff}
+  .btn-primary:hover{background:var(--navy-2);transform:translateY(-2px)}
+  .btn-primary[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--line);flex:0 0 auto;min-width:92px}
+  .btn-ghost:hover{border-color:var(--navy)}
+  .btn-big{width:100%;font-size:17px;padding:18px 24px}
+
+  /* ===== RESULT ===== */
+  .res-loading{text-align:center;padding:60px 0}
+  .res-loading .spin{
+    width:38px;height:38px;border:3px solid var(--line-2);border-top-color:var(--accent);
+    border-radius:50%;margin:0 auto 18px;animation:rot .8s linear infinite;
+  }
+  @keyframes rot{to{transform:rotate(360deg)}}
+  .res-loading p{font-size:14px;color:var(--mute);font-weight:500}
+
+  .winner{
+    background:var(--navy);color:#fff;padding:30px 24px 30px;
+    box-shadow:0 2px 4px rgba(22,39,63,.1),0 26px 56px -26px rgba(22,39,63,.5);
+  }
+  .winner .rl{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:700;letter-spacing:.12em;color:#9fb4d0;margin-bottom:16px;
+  }
+  .winner .rl::before{content:"";width:20px;height:2px;background:var(--accent);display:inline-block}
+  .winner .wf{font-size:15px;font-weight:500;color:rgba(255,255,255,.86);line-height:1.6}
+  .winner .wf b{
+    color:#fff;font-weight:700;font-size:27px;border-bottom:3px solid var(--accent);
+    padding-bottom:2px;letter-spacing:-.01em;display:inline-block;line-height:1.3;
+  }
+  .winner .big{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 9px;line-height:.96;margin-top:22px}
+  .winner .big .pre{font-size:15px;font-weight:500;color:rgba(255,255,255,.8);align-self:center}
+  .winner .big .v{font-family:var(--num);font-size:clamp(60px,18vw,92px);font-weight:700;color:#fff;letter-spacing:.005em}
+  .winner .big .u{font-size:25px;font-weight:700;color:#fff;font-family:var(--sans)}
+  .winner .big .y{font-size:14px;font-weight:500;color:rgba(255,255,255,.8);width:100%;margin-top:6px;line-height:1.7}
+  .winner .note{
+    margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);
+    font-size:12px;line-height:1.8;color:rgba(255,255,255,.62);
+  }
+
+  /* RANKING */
+  .rank{margin-top:24px}
+  .rank h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .rank h3::before{content:"";width:18px;height:2px;background:var(--accent);display:inline-block}
+  .rrow{
+    display:flex;align-items:center;gap:13px;padding:15px 16px;
+    background:var(--paper);border:1px solid var(--line);margin-bottom:9px;
+  }
+  .rrow.top{border-color:var(--navy);background:linear-gradient(180deg,var(--tint),var(--paper))}
+  .rrow .ri{font-family:var(--num);font-size:22px;font-weight:600;color:var(--mute);width:24px;text-align:center;flex-shrink:0;line-height:1}
+  .rrow.top .ri{color:var(--accent)}
+  .rrow .rmid{flex:1;min-width:0}
+  .rrow .rname{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.4}
+  .rrow .rbar{height:5px;background:var(--tint-2);margin-top:8px;position:relative;overflow:hidden}
+  .rrow .rbar i{position:absolute;left:0;top:0;height:100%;background:var(--accent);width:0;transition:width .9s cubic-bezier(.16,1,.3,1)}
+  .rrow.top .rbar i{background:var(--navy)}
+  .rrow .rval{font-family:var(--num);font-size:21px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0;line-height:1}
+  .rrow .rval .rs{font-family:var(--sans);font-size:.5em;font-weight:700;color:var(--mute);margin-left:2px}
+  .rrow.zero .rval{color:var(--mute)}
+
+  .total-box{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    background:var(--tint);border:1px solid var(--line);padding:16px 18px;margin-top:14px;
+  }
+  .total-box .tl{font-size:13px;font-weight:700;color:var(--ink);line-height:1.5}
+  .total-box .tv{font-family:var(--num);font-size:32px;font-weight:600;color:var(--navy);line-height:1;white-space:nowrap}
+  .total-box .tv .ts{font-family:var(--sans);font-size:.45em;font-weight:700;color:var(--mute);margin-left:3px}
+
+  .disc{font-size:12px;color:var(--mute);line-height:1.8;margin-top:18px;background:var(--tint);border:1px solid var(--line-2);padding:15px 16px}
+  .disc b{color:var(--ink);font-weight:700}
+
+  /* ===== CTA ===== */
+  .cta{background:var(--navy-2);color:#fff;padding:32px 24px;margin-top:24px;text-align:center}
+  .cta h2{color:#fff;font-size:20px;line-height:1.55;font-weight:700;margin-bottom:9px}
+  .cta p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:22px}
+  .cta .cbtn{
+    display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+    font-family:var(--sans);font-size:16px;font-weight:700;padding:17px 22px;
+    cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease;
+  }
+  .cta .cbtn .ar{font-family:var(--num);font-weight:700;font-size:1.1em}
+  .cta .cbtn.solid{background:#fff;color:var(--navy);border:1.5px solid #fff}
+  .cta .cbtn.solid:hover{background:#eef2f7;transform:translateY(-2px)}
+  .cta .cbtn.line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-top:11px}
+  .cta .cbtn.line:hover{border-color:#fff;transform:translateY(-2px)}
+  .cta .micro{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:16px;line-height:1.7}
+  .cta .micro b{color:rgba(255,255,255,.85);font-weight:700}
+
+  /* ===== CREDIBILITY ===== */
+  .cred{padding:30px 0 8px}
+  .cred .ct{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-align:center;margin-bottom:18px}
+  .cred .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2)}
+  .cred .c{background:var(--paper);padding:20px 12px;text-align:center}
+  .cred .c .v{font-family:var(--num);font-size:clamp(28px,8vw,36px);font-weight:600;color:var(--navy);line-height:1;display:flex;align-items:baseline;justify-content:center;gap:3px}
+  .cred .c .v .ar{font-family:var(--sans);font-size:.42em;font-weight:700;color:var(--accent);margin:0 1px}
+  .cred .c .v small{font-family:var(--sans);font-size:.34em;font-weight:700;color:var(--accent)}
+  .cred .c .l{font-size:11px;color:var(--mute);margin-top:9px;line-height:1.5}
+  .cred .by{font-size:12px;color:var(--mute);text-align:center;line-height:1.85;margin-top:20px}
+  .cred .by b{color:var(--ink);font-weight:700}
+
+  /* ===== FOOTER ===== */
+  footer{background:#10192a;color:rgba(255,255,255,.55);padding:28px 0 calc(30px + env(safe-area-inset-bottom));margin-top:30px}
+  footer .fb{font-weight:700;font-size:16px;color:#fff}
+  footer .fb .s{display:block;font-size:11.5px;color:#9fb4d0;margin-top:5px;font-weight:500}
+  footer .links{display:flex;flex-wrap:wrap;gap:7px 18px;margin-top:16px;font-size:13px}
+  footer .links a{color:rgba(255,255,255,.7)}
+  footer .links a:hover{color:#9fb4d0}
+  footer .legal{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:rgba(255,255,255,.4);line-height:1.7}
+
+  @media(min-width:520px){
+    .opts{grid-template-columns:repeat(2,1fr)}
+    .winner .big .v{font-size:clamp(70px,16vw,98px)}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PROGRESS ===== -->
+<div class="prog" id="prog" aria-hidden="false">
+  <div class="pwrap">
+    <span class="pbrand">無料AI経営診断</span>
+    <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+    <span class="pnum"><span id="pcur">0</span><span class="ps">/</span><span id="pmax">3</span></span>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+  <!-- ============ STAGE 0: INTRO ============ -->
+  <section class="stage on" id="stage-intro">
+    <div class="intro">
+      <span class="label">所要 約30秒 ／ 全3ステップ</span>
+      <h1>御社でAIが一番<em>「利益」</em>を生む場所は、どこか。</h1>
+      <p class="lead">
+        AIは目的ではなく、利益を増やすための手段です。<b>営業・マーケ・CS・採用・バックオフィス</b>のどこにAIを効かせると、御社の利益が一番伸びるのか。いくつかの質問に答えるだけで、その場所と概算インパクトを算出します。
+      </p>
+      <div class="meta">
+        <div class="m"><span class="mn">4</span>属性の質問</div>
+        <div class="m"><span class="mn">5</span>機能の課題感</div>
+        <div class="m"><span class="mn">30</span>秒で結果表示</div>
+      </div>
+      <div class="nav">
+        <button class="btn btn-primary btn-big" id="start-btn">診断をはじめる <span class="ar">→</span></button>
+      </div>
+      <p style="font-size:12px;color:var(--mute);line-height:1.8;margin-top:16px">
+        入力いただいた数値はその場で計算するためだけに使います。試算は公開情報・一般値ベースの<b style="color:var(--ink);font-weight:700">概算</b>です。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 1: ATTRIBUTES ============ -->
+  <section class="stage" id="stage-attr">
+    <div class="sec-head"><span class="n">01</span><h2>御社について</h2></div>
+    <p class="sec-sub">4つだけ。御社の規模に合わせて試算の精度を上げます。</p>
+
+    <div class="qblock" data-key="industry">
+      <span class="qt">業種<span class="req">必須</span></span>
+      <div class="opts">
+        <div class="opt" data-val="D2C">D2C</div>
+        <div class="opt" data-val="EC・通販">EC・通販</div>
+        <div class="opt" data-val="美容・クリニック">美容・クリニック</div>
+        <div class="opt" data-val="教育">教育</div>
+        <div class="opt" data-val="SaaS・IT">SaaS・IT</div>
+        <div class="opt" data-val="人材">人材</div>
+        <div class="opt" data-val="その他">その他</div>
+      </div>
+    </div>
+
+    <div class="qblock" data-key="revenue">
+      <span class="qt">年商<span class="req">必須</span></span>
+      <div class="opts">
+        <div class="opt" data-val="〜3億">〜3億</div>
+        <div class="opt" data-val="3〜10億">3〜10億</div>
+        <div class="opt" data-val="10〜50億">10〜50億</div>
+        <div class="opt" data-val="50億〜">50億〜</div>
+      </div>
+    </div>
+
+    <div class="qblock" data-key="employees">
+      <span class="qt">従業員数<span class="req">必須</span></span>
+      <div class="opts">
+        <div class="opt" data-val="〜10名">〜10名</div>
+        <div class="opt" data-val="10〜50名">10〜50名</div>
+        <div class="opt" data-val="50〜150名">50〜150名</div>
+        <div class="opt" data-val="150名〜">150名〜</div>
+      </div>
+    </div>
+
+    <div class="qblock" data-key="role">
+      <span class="qt">あなたの立場<span class="req">必須</span></span>
+      <div class="opts">
+        <div class="opt" data-val="経営者・役員">経営者・役員</div>
+        <div class="opt" data-val="事業責任者">事業責任者</div>
+        <div class="opt" data-val="部門長">部門長</div>
+        <div class="opt" data-val="担当者">担当者</div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" data-back="intro">戻る</button>
+      <button class="btn btn-primary" id="attr-next" disabled>次へ <span class="ar">→</span></button>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 2: FUNCTION ISSUES ============ -->
+  <section class="stage" id="stage-func">
+    <div class="sec-head"><span class="n">02</span><h2>いまの課題感</h2></div>
+    <p class="sec-sub">5つの機能それぞれ、いまどれくらい課題を感じていますか。直感でOKです。</p>
+
+    <!-- 営業（主役） -->
+    <div class="fcard" data-fkey="sales">
+      <div class="fh"><span class="ftag star">主役</span><span class="fn">営業</span></div>
+      <p class="fd">商談以外の業務（提案資料・議事録・メール・リスト作成・情報収集）に時間を取られている。</p>
+      <div class="lvls">
+        <div class="lvl" data-lv="big">大きい</div>
+        <div class="lvl" data-lv="mid">まあまあ</div>
+        <div class="lvl" data-lv="low">小さい</div>
+        <div class="lvl" data-lv="none">該当なし</div>
+      </div>
+    </div>
+
+    <!-- マーケ -->
+    <div class="fcard" data-fkey="mkt">
+      <div class="fh"><span class="ftag">マーケ</span><span class="fn">マーケティング</span></div>
+      <p class="fd">広告・SNSのCPAや、クリエイティブ制作に課題がある。</p>
+      <div class="lvls">
+        <div class="lvl" data-lv="big">大きい</div>
+        <div class="lvl" data-lv="mid">まあまあ</div>
+        <div class="lvl" data-lv="low">小さい</div>
+        <div class="lvl" data-lv="none">該当なし</div>
+      </div>
+    </div>
+
+    <!-- CS -->
+    <div class="fcard" data-fkey="cs">
+      <div class="fh"><span class="ftag">CS</span><span class="fn">カスタマーサポート</span></div>
+      <p class="fd">問い合わせ対応・サポートの工数が重い。</p>
+      <div class="lvls">
+        <div class="lvl" data-lv="big">大きい</div>
+        <div class="lvl" data-lv="mid">まあまあ</div>
+        <div class="lvl" data-lv="low">小さい</div>
+        <div class="lvl" data-lv="none">該当なし</div>
+      </div>
+    </div>
+
+    <!-- 採用 -->
+    <div class="fcard" data-fkey="hr">
+      <div class="fh"><span class="ftag">採用</span><span class="fn">採用</span></div>
+      <p class="fd">採用コスト・母集団形成・選考工数に課題がある。</p>
+      <div class="lvls">
+        <div class="lvl" data-lv="big">大きい</div>
+        <div class="lvl" data-lv="mid">まあまあ</div>
+        <div class="lvl" data-lv="low">小さい</div>
+        <div class="lvl" data-lv="none">該当なし</div>
+      </div>
+    </div>
+
+    <!-- バックオフィス -->
+    <div class="fcard" data-fkey="bo">
+      <div class="fh"><span class="ftag">バックオフィス</span><span class="fn">バックオフィス</span></div>
+      <p class="fd">レポート作成・事務作業・データ集計に時間を取られている。</p>
+      <div class="lvls">
+        <div class="lvl" data-lv="big">大きい</div>
+        <div class="lvl" data-lv="mid">まあまあ</div>
+        <div class="lvl" data-lv="low">小さい</div>
+        <div class="lvl" data-lv="none">該当なし</div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" data-back="attr">戻る</button>
+      <button class="btn btn-primary" id="func-next" disabled>次へ <span class="ar">→</span></button>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 3: SALES SCALE ============ -->
+  <section class="stage" id="stage-scale">
+    <div class="sec-head"><span class="n">03</span><h2>営業の規模</h2></div>
+    <p class="sec-sub">主役である営業だけ、実数で入れていただくと試算の精度が上がります。目安でOKです。</p>
+
+    <div class="panel">
+      <div class="field">
+        <div class="q">
+          <div class="qtx">
+            <label for="n-sales">営業・インサイドセールスの人数</label>
+            <span class="hint">商談前後の作業が発生する人の数</span>
+          </div>
+          <div class="stepper">
+            <button type="button" data-step="-1" data-t="n-sales" aria-label="減らす">−</button>
+            <span class="sin"><input type="number" id="n-sales" min="1" max="500" step="1" value="5" inputmode="numeric"></span>
+            <button type="button" data-step="1" data-t="n-sales" aria-label="増やす">＋</button>
+            <span class="u">人</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="q">
+          <div class="qtx">
+            <label for="n-salary">一人あたり 平均年収</label>
+            <span class="hint">会社負担の人件費ベース（目安でOK）</span>
+          </div>
+          <div class="stepper">
+            <button type="button" data-step="-50" data-t="n-salary" aria-label="減らす">−</button>
+            <span class="sin"><input type="number" id="n-salary" min="200" max="3000" step="50" value="600" inputmode="numeric"></span>
+            <button type="button" data-step="50" data-t="n-salary" aria-label="増やす">＋</button>
+            <span class="u">万円</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" data-back="func">戻る</button>
+      <button class="btn btn-primary" id="scale-next">結果を見る <span class="ar">→</span></button>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 4: RESULT ============ -->
+  <section class="stage" id="stage-result">
+
+    <div class="res-loading" id="res-loading">
+      <div class="spin"></div>
+      <p>御社の数字で試算しています…</p>
+    </div>
+
+    <div id="res-body" style="display:none">
+
+      <div class="winner">
+        <span class="rl">診断結果 ／ AIが一番「利益」を生む場所</span>
+        <div class="wf">御社でAIが一番利益を生むのは<br><b id="w-name">営業</b></div>
+        <div class="big">
+          <span class="pre">年間 約</span><span class="v num" id="w-val">720</span><span class="u">万円</span>
+          <span class="y" id="w-msg">の利益インパクトが見込めます（概算）。</span>
+        </div>
+        <p class="note">※ 商談以外に消えていた時間をAIで巻き取り、その分を商談・提案・顧客対応へ。人を減らす話ではなく、同じ人数で手数が増える計算です。</p>
+      </div>
+
+      <div class="rank">
+        <h3>5機能の利益インパクト ランキング</h3>
+        <div id="rank-list"></div>
+        <div class="total-box">
+          <span class="tl">5機能 合計の<br>年間利益インパクト（概算）</span>
+          <span class="tv num"><span id="t-pre">約 </span><span id="t-val">1,180</span><span class="ts" id="t-suf">万円</span></span>
+        </div>
+        <p class="disc">
+          ※ この試算は<b>公開情報・一般値ベースの概算</b>です。御社の実数（業務内訳・原価・体制）に基づく精密試算と、「どこから手をつけると一番効くか」の設計は、無料相談でお出しします。
+        </p>
+      </div>
+
+      <!-- ▼▼ CTA: 予約URL / LINE URL 差し込み ▼▼ -->
+      <section class="cta">
+        <h2>御社の数字を、一緒に見ます。</h2>
+        <p>この概算を、御社の実数で精密試算に。どこから自動化すれば一番利益が伸びるかを、具体的な数字で設計します。売り込みはしません。御社の数字を一緒に見るだけです。</p>
+        <!-- 第一CTA: TimeRex の予約URLに差し替える（例: https://timerex.net/s/xxxxx） -->
+        <a class="cbtn solid" href="#BOOKING" id="cta-book">無料相談で精密診断（30分・無料） <span class="ar">→</span></a>
+        <!-- 第二CTA: LINE友だち追加URLに差し替える（例: https://lin.ee/xxxxx） -->
+        <a class="cbtn line" href="#LINE" id="cta-line">LINEで結果と改善ヒントを受け取る <span class="ar">→</span></a>
+        <p class="micro">所要30分／オンライン（Google Meet）／費用なし。<b>売り込みはしません。</b></p>
+      </section>
+
+      <!-- 信頼づけ -->
+      <section class="cred">
+        <div class="ct">診断する人の実績</div>
+        <div class="grid">
+          <div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を12ヶ月で<br>1,000万→1億に</div></div>
+          <div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br>赤字を黒字化</div></div>
+          <div class="c"><div class="v num">2<small>億</small></div><div class="l">手がけた事業の<br>累計営業利益</div></div>
+        </div>
+        <p class="by"><b>秋山 洋晃</b>（COO株式会社 代表取締役 ／ CMO代行）<br>D2C・EC・FMCG・クリニック・メディアを 15社以上 / 7年以上 支援。</p>
+      </section>
+
+      <div class="nav">
+        <button class="btn btn-ghost btn-big" id="restart-btn">もう一度診断する</button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
+    <div class="links">
+      <a href="https://cooinc.co.jp" target="_blank" rel="noopener">cooinc.co.jp</a>
+      <a href="https://x.com/akky0429" target="_blank" rel="noopener">X / @akky0429</a>
+      <a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
+    </div>
+    <div class="legal">本診断の結果は入力値にもとづく簡易的な推定（概算）であり、効果を保証するものではありません。<br>© COO Inc. ／ 秋山洋晃</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================================
+     ENDPOINT — bot の受信URL。空文字 "" のままなら何もPOSTせず、ツールは単体で完結する。
+     bot公開後にここへ URL を入れると、診断完了時に payload を fetch POST する。
+     POST が空 or 失敗しても UX は絶対に止めない（下の sendPayload を参照）。
+     例: const ENDPOINT = "https://xxxx.example.com/diagnosis";
+  ========================================================================== */
+  const ENDPOINT = "";
+
+  function $(id){ return document.getElementById(id); }
+  function $all(sel,root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+  function fmt(v){ return Math.round(v).toLocaleString("ja-JP"); }
+
+  /* ---- uid: URL ?uid= を読み取り保持（無ければ null・単体完結） ---- */
+  var uid = null;
+  try {
+    var sp = new URLSearchParams(window.location.search);
+    var u = sp.get("uid");
+    if (u && u.trim()) uid = u.trim();
+  } catch(e) { uid = null; }
+
+  /* ---- state ---- */
+  var state = {
+    attr:  { industry:null, revenue:null, employees:null, role:null },
+    func:  { sales:null, mkt:null, cs:null, hr:null, bo:null }, // big|mid|low|none
+    sales: { n: 5, salary: 600 }
+  };
+
+  /* ---- stage navigation ---- */
+  var ORDER = ["intro","attr","func","scale","result"];
+  var STAGE = {
+    intro:  $("stage-intro"),
+    attr:   $("stage-attr"),
+    func:   $("stage-func"),
+    scale:  $("stage-scale"),
+    result: $("stage-result")
+  };
+  // プログレス上のステップ番号（intro=0, attr=1, func=2, scale=3, result=完了表示）
+  var PROG_STEP = { intro:0, attr:1, func:2, scale:3, result:3 };
+
+  function go(name){
+    ORDER.forEach(function(k){ STAGE[k].classList.toggle("on", k===name); });
+    var step = PROG_STEP[name];
+    $("pfill").style.width = (step/3*100) + "%";
+    $("pcur").textContent = step;
+    // 画面トップへ
+    try { window.scrollTo({ top:0, behavior: prefersReduced() ? "auto" : "smooth" }); }
+    catch(e){ window.scrollTo(0,0); }
+  }
+
+  function prefersReduced(){
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  /* ---- intro ---- */
+  $("start-btn").addEventListener("click", function(){ go("attr"); });
+
+  /* ---- 戻るボタン ---- */
+  $all("[data-back]").forEach(function(b){
+    b.addEventListener("click", function(){ go(b.getAttribute("data-back")); });
+  });
+
+  /* ---- STEP1: 属性（pill 単一選択） ---- */
+  $all(".qblock").forEach(function(block){
+    var key = block.getAttribute("data-key");
+    $all(".opt", block).forEach(function(opt){
+      opt.addEventListener("click", function(){
+        $all(".opt", block).forEach(function(o){ o.classList.remove("sel"); });
+        opt.classList.add("sel");
+        state.attr[key] = opt.getAttribute("data-val");
+        checkAttr();
+      });
+    });
+  });
+  function checkAttr(){
+    var ok = state.attr.industry && state.attr.revenue && state.attr.employees && state.attr.role;
+    $("attr-next").disabled = !ok;
+    return ok;
+  }
+  $("attr-next").addEventListener("click", function(){ if(checkAttr()) go("func"); });
+
+  /* ---- STEP2: 5機能の課題感 ---- */
+  $all(".fcard").forEach(function(card){
+    var fkey = card.getAttribute("data-fkey");
+    $all(".lvl", card).forEach(function(lv){
+      lv.addEventListener("click", function(){
+        $all(".lvl", card).forEach(function(x){ x.classList.remove("sel"); });
+        lv.classList.add("sel");
+        state.func[fkey] = lv.getAttribute("data-lv");
+        checkFunc();
+      });
+    });
+  });
+  function checkFunc(){
+    var allSet = Object.keys(state.func).every(function(k){ return state.func[k] !== null; });
+    $("func-next").disabled = !allSet;
+    return allSet;
+  }
+  $("func-next").addEventListener("click", function(){ if(checkFunc()) go("scale"); });
+
+  /* ---- STEP3: 営業の規模（number + spinner） ---- */
+  function clamp(v,min,max){ if(isNaN(v)) v=min; return Math.max(min, Math.min(max, v)); }
+  function syncSales(){
+    var n = $("n-sales"), s = $("n-salary");
+    state.sales.n = clamp(parseFloat(n.value), parseFloat(n.min), parseFloat(n.max));
+    state.sales.salary = clamp(parseFloat(s.value), parseFloat(s.min), parseFloat(s.max));
+  }
+  $all("[data-step]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var t = $(btn.getAttribute("data-t"));
+      var d = parseFloat(btn.getAttribute("data-step"));
+      var v = clamp((parseFloat(t.value)||0) + d, parseFloat(t.min), parseFloat(t.max));
+      t.value = v;
+      syncSales();
+    });
+  });
+  ["n-sales","n-salary"].forEach(function(id){
+    var el = $(id);
+    el.addEventListener("input", syncSales);
+    el.addEventListener("blur", function(){
+      el.value = clamp(parseFloat(el.value), parseFloat(el.min), parseFloat(el.max));
+      syncSales();
+    });
+  });
+
+  /* =========================================================================
+     インパクト試算モデル（DIAGNOSIS_SPEC.md §3）— すべて "概算"
+  ========================================================================== */
+  var COEF = { big:1.0, mid:0.5, low:0.2, none:0 }; // 課題係数
+  var EMP_PROXY = { "〜10名":6, "10〜50名":25, "50〜150名":90, "150名〜":200 }; // 会社規模proxy
+
+  // function key → 表示名
+  var FN_LABEL = { sales:"営業", mkt:"マーケティング", cs:"カスタマーサポート", hr:"採用", bo:"バックオフィス" };
+
+  function computeImpacts(){
+    var emp = EMP_PROXY[state.attr.employees] || 25;
+    var c = function(k){ return COEF[state.func[k]] != null ? COEF[state.func[k]] : 0; };
+
+    // 営業（主役・精度高）: n_sales × salary × 0.40 × 0.60 × 係数
+    var sales = state.sales.n * state.sales.salary * 0.40 * 0.60 * c("sales");
+    // マーケ: emp × 60 × 0.20 × 係数
+    var mkt = emp * 60 * 0.20 * c("mkt");
+    // CS: emp × 0.15 × 500 × 0.30 × 係数
+    var cs = emp * 0.15 * 500 * 0.30 * c("cs");
+    // 採用: emp × 0.10 × 50 × 0.40 × 係数
+    var hr = emp * 0.10 * 50 * 0.40 * c("hr");
+    // バックオフィス: emp × 0.12 × 500 × 0.35 × 係数
+    var bo = emp * 0.12 * 500 * 0.35 * c("bo");
+
+    return [
+      { key:"sales", label:FN_LABEL.sales, val:sales },
+      { key:"mkt",   label:FN_LABEL.mkt,   val:mkt },
+      { key:"cs",    label:FN_LABEL.cs,    val:cs },
+      { key:"hr",    label:FN_LABEL.hr,    val:hr },
+      { key:"bo",    label:FN_LABEL.bo,    val:bo }
+    ];
+  }
+
+  // メイン金額は読みやすく丸める（1000万以上→100単位、未満→10単位）
+  function roundMain(v){
+    if (v >= 1000) return Math.round(v/100)*100;
+    if (v >= 100)  return Math.round(v/10)*10;
+    return Math.round(v);
+  }
+
+  /* =========================================================================
+     クオリファイ tier（隠しスコア・表示しない・payloadのみ）
+  ========================================================================== */
+  var QUAL_INDUSTRY = { "D2C":1, "EC・通販":1, "美容・クリニック":1, "教育":1, "SaaS・IT":1, "人材":1 };
+  // 注: spec §4 の HOT条件業種は {D2C,EC,美容・クリニック,教育,SaaS,人材}。EC・通販=EC として扱う。
+  var REV_GE_3 = { "3〜10億":1, "10〜50億":1, "50億〜":1 }; // 年商≥3億
+  var DECISION_ROLE = { "経営者・役員":1, "事業責任者":1 };
+
+  function computeTier(impacts){
+    var role = state.attr.role, rev = state.attr.revenue, ind = state.attr.industry, emp = state.attr.employees;
+    var maxCoef = Math.max.apply(null, Object.keys(state.func).map(function(k){ return COEF[state.func[k]] || 0; }));
+    var allNone = Object.keys(state.func).every(function(k){ return state.func[k] === "none"; });
+
+    // AIネイティブ示唆（SaaS×全課題なし 等）→ COLD 寄せ
+    if (allNone) return "COLD";
+    if (ind === "SaaS・IT" && maxCoef <= 0.2) return "COLD";
+
+    // HOT: 意思決定者 かつ 年商≥3億 かつ 最大課題係数≥0.5 かつ 業種∈優先群
+    if (DECISION_ROLE[role] && REV_GE_3[rev] && maxCoef >= 0.5 && QUAL_INDUSTRY[ind]) {
+      return "HOT";
+    }
+    // COLD: 担当者 / 年商<3億かつ小規模
+    if (role === "担当者") return "COLD";
+    if (rev === "〜3億" && (emp === "〜10名")) return "COLD";
+
+    // WARM: 一部充足（意思決定者だが年商<3億 等）
+    return "WARM";
+  }
+
+  /* =========================================================================
+     タグ生成（leads.json用）
+  ========================================================================== */
+  var WEAK_LABEL = { sales:"営業", mkt:"マーケ", cs:"CS", hr:"採用", bo:"バックオフィス" };
+  function buildTags(top, tier){
+    return [
+      "業種_" + state.attr.industry,
+      "年商_" + state.attr.revenue,
+      "役職_" + state.attr.role,
+      "弱点_" + (WEAK_LABEL[top.key] || top.label),
+      "診断_" + tier,
+      "診断完了"
+    ];
+  }
+
+  /* =========================================================================
+     bot へ POST（ENDPOINT が空 or 失敗しても UX は止めない）
+  ========================================================================== */
+  function sendPayload(payload){
+    if (!ENDPOINT) return; // 空文字 → 何もしない（単体完結）
+    try {
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+        mode: "cors"
+      }).catch(function(){ /* 失敗してもUXは止めない */ });
+    } catch(e) { /* no-op */ }
+  }
+
+  /* =========================================================================
+     結果描画
+  ========================================================================== */
+  function renderResult(){
+    var impacts = computeImpacts();
+    var ranked = impacts.slice().sort(function(a,b){ return b.val - a.val; });
+    var top = ranked[0];
+    var total = impacts.reduce(function(s,x){ return s + x.val; }, 0);
+    var tier = computeTier(impacts);
+    var tags = buildTags(top, tier);
+
+    var topMan   = roundMain(top.val);
+    var totalMan = roundMain(total);
+
+    // 全機能ほぼ0（課題感が全部小さい/なし）の場合のフォールバック表現
+    var noSignal = top.val < 1;
+
+    // ---- winner ----
+    $("w-name").textContent = top.label;
+    $("w-val").textContent  = noSignal ? "—" : fmt(topMan);
+    $("w-msg").textContent  = noSignal
+      ? "現時点の課題感では、概算インパクトは小さめです。実数で見れば変わることも多いです（概算）。"
+      : "の利益インパクトが見込めます（概算）。";
+
+    // ---- ranking ----
+    var maxVal = Math.max.apply(null, ranked.map(function(x){ return x.val; }));
+    if (maxVal <= 0) maxVal = 1;
+    var listHtml = ranked.map(function(x, i){
+      var pct = Math.max(2, Math.round(x.val / maxVal * 100));
+      var man = roundMain(x.val);
+      var zero = x.val < 1;
+      return ''
+        + '<div class="rrow ' + (i===0 && !zero ? 'top' : '') + (zero ? ' zero' : '') + '">'
+        +   '<div class="ri">' + (i+1) + '</div>'
+        +   '<div class="rmid">'
+        +     '<div class="rname">' + x.label + '</div>'
+        +     '<div class="rbar"><i data-w="' + (zero ? 0 : pct) + '"></i></div>'
+        +   '</div>'
+        +   '<div class="rval">' + (zero ? '—' : fmt(man)) + '<span class="rs">万円</span></div>'
+        + '</div>';
+    }).join("");
+    $("rank-list").innerHTML = listHtml;
+
+    // 全機能ほぼ0 なら winner と表記を揃え、合計も "—"（"約 0 万円" を出さない）
+    if (noSignal) {
+      $("t-val").textContent = "—";
+      $("t-pre").style.display = "none";
+      $("t-suf").style.display = "none";
+    } else {
+      $("t-val").textContent = fmt(totalMan);
+      $("t-pre").style.display = "";
+      $("t-suf").style.display = "";
+    }
+
+    // バー幅を次フレームでセット（アニメーション発火）
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        $all("#rank-list .rbar i").forEach(function(bar){
+          bar.style.width = bar.getAttribute("data-w") + "%";
+        });
+      });
+    });
+
+    // ---- payload（spec §5 のフィールド名に厳密に一致）----
+    var payload = {
+      uid: uid,
+      industry: state.attr.industry,
+      revenue: state.attr.revenue,
+      employees: state.attr.employees,
+      role: state.attr.role,
+      top_function: top.label,
+      top_impact_man: topMan,
+      total_impact_man: totalMan,
+      tier: tier,
+      tags: tags
+    };
+    sendPayload(payload);
+
+    // デバッグ用（公開時は影響なし）
+    try { window.__diagnosisPayload = payload; } catch(e){}
+  }
+
+  /* ---- STEP3 → 結果（ローディング演出を挟む）---- */
+  $("scale-next").addEventListener("click", function(){
+    syncSales();
+    go("result");
+    $("res-loading").style.display = "block";
+    $("res-body").style.display = "none";
+    var delay = prefersReduced() ? 0 : 950;
+    setTimeout(function(){
+      renderResult();
+      $("res-loading").style.display = "none";
+      $("res-body").style.display = "block";
+      try { window.scrollTo({ top:0, behavior: prefersReduced() ? "auto" : "smooth" }); }
+      catch(e){ window.scrollTo(0,0); }
+    }, delay);
+  });
+
+  /* ---- やり直し ---- */
+  $("restart-btn").addEventListener("click", function(){
+    // 選択状態を初期化
+    state.attr = { industry:null, revenue:null, employees:null, role:null };
+    state.func = { sales:null, mkt:null, cs:null, hr:null, bo:null };
+    state.sales = { n:5, salary:600 };
+    $all(".opt.sel, .lvl.sel").forEach(function(e){ e.classList.remove("sel"); });
+    $("n-sales").value = 5; $("n-salary").value = 600;
+    $("attr-next").disabled = true;
+    $("func-next").disabled = true;
+    go("intro");
+  });
+
+  // 初期表示
+  go("intro");
+})();
+</script>
+
+</body>
+</html>
