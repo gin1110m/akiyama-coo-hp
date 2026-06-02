@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!-- ============================================================================
      【DRAFT — 秋山さん確認前提】この無料AI経営診断ツールはドラフトです。公開前に秋山洋晃さん本人が、
      設問・コピー・インパクト試算モデルの係数（DIAGNOSIS_SPEC.md §3）・肩書（COO株式会社 代表取締役／CMO代行）・
@@ -12,15 +13,15 @@
 ============================================================================ -->
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>無料AI経営診断 ｜ 御社でAIが一番「利益」を生む場所は、どこか。</title>
-<meta name="description" content="30秒で、御社のAI利益ポテンシャルが分かる。営業・マーケ・CS・採用・バックオフィスを診断し、AIで一番利益が増える場所と、その概算インパクトをその場で算出します。">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#16273f">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<meta content="30秒で、御社のAI利益ポテンシャルが分かる。営業・マーケ・CS・採用・バックオフィスを診断し、AIで一番利益が増える場所と、その概算インパクトをその場で算出します。" name="description"/>
+<meta content="noindex" name="robots"/>
+<meta content="#16273f" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --paper:#fbfaf7;
@@ -301,284 +302,253 @@
     html{scroll-behavior:auto}
   }
 </style>
-</head>
+<style id="budoux-style">body{word-break:keep-all;overflow-wrap:anywhere;line-break:strict;}</style></head>
 <body>
-
 <!-- ===== PROGRESS ===== -->
-<div class="prog" id="prog" aria-hidden="false">
-  <div class="pwrap">
-    <span class="pbrand">無料AI経営診断</span>
-    <div class="ptrack"><div class="pfill" id="pfill"></div></div>
-    <span class="pnum"><span id="pcur">0</span><span class="ps">/</span><span id="pmax">3</span></span>
-  </div>
+<div aria-hidden="false" class="prog" id="prog">
+<div class="pwrap">
+<span class="pbrand">無料AI経営診断</span>
+<div class="ptrack"><div class="pfill" id="pfill"></div></div>
+<span class="pnum"><span id="pcur">0</span><span class="ps">/</span><span id="pmax">3</span></span>
 </div>
-
+</div>
 <main class="wrap" id="main">
-
-  <!-- ============ STAGE 0: INTRO ============ -->
-  <section class="stage on" id="stage-intro">
-    <div class="intro">
-      <span class="label">所要 約30秒 ／ 全3ステップ</span>
-      <h1>御社でAIが一番<em>「利益」</em>を生む場所は、どこか。</h1>
-      <p class="lead">
-        AIは目的ではなく、利益を増やすための手段です。<b>営業・マーケ・CS・採用・バックオフィス</b>のどこにAIを効かせると、御社の利益が一番伸びるのか。いくつかの質問に答えるだけで、その場所と概算インパクトを算出します。
+<!-- ============ STAGE 0: INTRO ============ -->
+<section class="stage on" id="stage-intro">
+<div class="intro">
+<span class="label">所要 約30秒 ／ 全3​ステップ</span>
+<h1>御社で​AIが​一番<em>​「利益」</em>を​生む場所は、​どこか。</h1>
+<p class="lead">
+        AIは​目的ではなく、​利益を​増や​すための​手段です。<b>​営業・マーケ・CS・採用・バックオフィス</b>の​どこに​AIを​効かせると、​御社の​利益が​一番​伸びるのか。​いく​つかの​質問に​答えるだけで、​その​場所と​概算インパクトを​算出します。​
       </p>
-      <div class="meta">
-        <div class="m"><span class="mn">4</span>属性の質問</div>
-        <div class="m"><span class="mn">5</span>機能の課題感</div>
-        <div class="m"><span class="mn">30</span>秒で結果表示</div>
-      </div>
-      <div class="nav">
-        <button class="btn btn-primary btn-big" id="start-btn">診断をはじめる <span class="ar">→</span></button>
-      </div>
-      <p style="font-size:12px;color:var(--mute);line-height:1.8;margin-top:16px">
-        入力いただいた数値はその場で計算するためだけに使います。試算は公開情報・一般値ベースの<b style="color:var(--ink);font-weight:700">概算</b>です。
+<div class="meta">
+<div class="m"><span class="mn">4</span>属性の​質問</div>
+<div class="m"><span class="mn">5</span>機能の​課題感</div>
+<div class="m"><span class="mn">30</span>秒で​結果​表示</div>
+</div>
+<div class="nav">
+<button class="btn btn-primary btn-big" id="start-btn">診断を​はじめる​ <span class="ar">→</span></button>
+</div>
+<p style="font-size:12px;color:var(--mute);line-height:1.8;margin-top:16px">
+        入力いただいた​数値は​その場で​計算する​ためだけに​使います。​試算は​公開情報・​一般値ベースの<b style="color:var(--ink);font-weight:700">​概算</b>です。​
       </p>
-    </div>
-  </section>
-
-  <!-- ============ STAGE 1: ATTRIBUTES ============ -->
-  <section class="stage" id="stage-attr">
-    <div class="sec-head"><span class="n">01</span><h2>御社について</h2></div>
-    <p class="sec-sub">4つだけ。御社の規模に合わせて試算の精度を上げます。</p>
-
-    <div class="qblock" data-key="industry">
-      <span class="qt">御社にいちばん近い事業はどれですか？<span class="req">必須</span></span>
-      <div class="opts">
-        <div class="opt" data-val="D2C">D2C（自社ブランド/定期通販）</div>
-        <div class="opt" data-val="EC・通販">EC・通販（モール/自社EC）</div>
-        <div class="opt" data-val="美容・クリニック">美容・クリニック（自由診療）</div>
-        <div class="opt" data-val="教育">教育・スクール</div>
-        <div class="opt" data-val="SaaS・IT">SaaS・IT</div>
-        <div class="opt" data-val="人材">人材・エージェント</div>
-        <div class="opt" data-val="その他">その他</div>
-      </div>
-    </div>
-
-    <div class="qblock" data-key="revenue">
-      <span class="qt">直近の年商は、ざっくりどのあたりですか？<span class="req">必須</span></span>
-      <div class="opts">
-        <div class="opt" data-val="〜3億">〜3億（まだ一点突破で伸ばせる）</div>
-        <div class="opt" data-val="3〜10億">3〜10億（人を増やし始めた局面）</div>
-        <div class="opt" data-val="10〜50億">10〜50億（非効率が出る規模）</div>
-        <div class="opt" data-val="50億〜">50億〜（全社横断で詰める余地）</div>
-      </div>
-    </div>
-
-    <div class="qblock" data-key="employees">
-      <span class="qt">社員数はどのくらいですか？<span class="req">必須</span></span>
-      <div class="opts">
-        <div class="opt" data-val="〜10名">〜10名（一人が何役も兼任）</div>
-        <div class="opt" data-val="10〜50名">10〜50名（役割分担が始まる）</div>
-        <div class="opt" data-val="50〜150名">50〜150名（報告工数が膨らむ）</div>
-        <div class="opt" data-val="150名〜">150名〜（部門で打ち手が割れる）</div>
-      </div>
-    </div>
-
-    <div class="qblock" data-key="role">
-      <span class="qt">あなたのお立場は？<span class="req">必須</span></span>
-      <div class="opts">
-        <div class="opt" data-val="経営者・役員">経営者・役員（P/Lに責任）</div>
-        <div class="opt" data-val="事業責任者">事業責任者（事業P/Lを見る）</div>
-        <div class="opt" data-val="部門長">部門長（自部署の数字を持つ）</div>
-        <div class="opt" data-val="担当者">担当者（提案材料を探し中）</div>
-      </div>
-    </div>
-
-    <div class="nav">
-      <button class="btn btn-ghost" data-back="intro">戻る</button>
-      <button class="btn btn-primary" id="attr-next" disabled>次へ <span class="ar">→</span></button>
-    </div>
-  </section>
-
-  <!-- ============ STAGE 2: FUNCTION ISSUES ============ -->
-  <section class="stage" id="stage-func">
-    <div class="sec-head"><span class="n">02</span><h2>いまの課題感</h2></div>
-    <p class="sec-sub">5つの機能それぞれ、いまどれくらい課題を感じていますか。直感でOKです。</p>
-
-    <!-- 営業（主役） -->
-    <div class="fcard" data-fkey="sales">
-      <div class="fh"><span class="ftag star">主役</span><span class="fn">営業</span></div>
-      <p class="fd">提案資料・議事録・リスト作成などに追われず、商談そのものに時間を使えていますか？</p>
-      <div class="lvls">
-        <div class="lvl" data-lv="big">商談は業務の半分以下</div>
-        <div class="lvl" data-lv="mid">付随作業で残業が常態化</div>
-        <div class="lvl" data-lv="low">商談時間は確保できている</div>
-        <div class="lvl" data-lv="none">営業部門はない</div>
-      </div>
-    </div>
-
-    <!-- マーケ -->
-    <div class="fcard" data-fkey="mkt">
-      <div class="fh"><span class="ftag">マーケ</span><span class="fn">マーケティング</span></div>
-      <p class="fd">当てる施策とクリエイティブを、十分な量とスピードで回せていますか？</p>
-      <div class="lvls">
-        <div class="lvl" data-lv="big">制作が全く追いつかない</div>
-        <div class="lvl" data-lv="mid">検証の量と速度が足りない</div>
-        <div class="lvl" data-lv="low">獲得効率は安定している</div>
-        <div class="lvl" data-lv="none">マーケ機能はない</div>
-      </div>
-    </div>
-
-    <!-- CS -->
-    <div class="fcard" data-fkey="cs">
-      <div class="fh"><span class="ftag">CS</span><span class="fn">カスタマーサポート</span></div>
-      <p class="fd">問い合わせは件数が増えても今の人数で回りますか？</p>
-      <div class="lvls">
-        <div class="lvl" data-lv="big">同じ質問対応に追われる</div>
-        <div class="lvl" data-lv="mid">繁忙期は遅れてクレーム</div>
-        <div class="lvl" data-lv="low">今の体制でさばけている</div>
-        <div class="lvl" data-lv="none">CS部門はない</div>
-      </div>
-    </div>
-
-    <!-- 採用 -->
-    <div class="fcard" data-fkey="hr">
-      <div class="fh"><span class="ftag">採用</span><span class="fn">採用</span></div>
-      <p class="fd">母集団形成から選考・日程調整までスムーズに回せていますか？</p>
-      <div class="lvls">
-        <div class="lvl" data-lv="big">手作業で単価だけ上がる</div>
-        <div class="lvl" data-lv="mid">送信・日程調整に時間</div>
-        <div class="lvl" data-lv="low">今のやり方で採れている</div>
-        <div class="lvl" data-lv="none">いま採用はしていない</div>
-      </div>
-    </div>
-
-    <!-- バックオフィス -->
-    <div class="fcard" data-fkey="bo">
-      <div class="fh"><span class="ftag">バックオフィス</span><span class="fn">バックオフィス</span></div>
-      <p class="fd">集計・レポート・議事録、どれくらい自動化できていますか？</p>
-      <div class="lvls">
-        <div class="lvl" data-lv="big">毎月まとまった工数が消える</div>
-        <div class="lvl" data-lv="mid">半分手作業でミスが出る</div>
-        <div class="lvl" data-lv="low">ほぼ自動化できている</div>
-        <div class="lvl" data-lv="none">専任の担当はいない</div>
-      </div>
-    </div>
-
-    <div class="nav">
-      <button class="btn btn-ghost" data-back="attr">戻る</button>
-      <button class="btn btn-primary" id="func-next" disabled>次へ <span class="ar">→</span></button>
-    </div>
-  </section>
-
-  <!-- ============ STAGE 3: SALES SCALE ============ -->
-  <section class="stage" id="stage-scale">
-    <div class="sec-head"><span class="n">03</span><h2>営業の規模</h2></div>
-    <p class="sec-sub">主役である営業だけ、実数で入れていただくと試算の精度が上がります。目安でOKです。</p>
-
-    <div class="panel">
-      <div class="field">
-        <div class="q">
-          <div class="qtx">
-            <label for="n-sales">商談の前後に資料・連絡などの作業が発生する人数</label>
-            <span class="hint">営業・インサイドセールスを含む人数</span>
-          </div>
-          <div class="stepper">
-            <button type="button" data-step="-1" data-t="n-sales" aria-label="減らす">−</button>
-            <span class="sin"><input type="number" id="n-sales" min="1" max="500" step="1" value="5" inputmode="numeric"></span>
-            <button type="button" data-step="1" data-t="n-sales" aria-label="増やす">＋</button>
-            <span class="u">人</span>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="q">
-          <div class="qtx">
-            <label for="n-salary">その一人あたりの平均年収</label>
-            <span class="hint">会社負担の人件費ベース（目安でOK）</span>
-          </div>
-          <div class="stepper">
-            <button type="button" data-step="-50" data-t="n-salary" aria-label="減らす">−</button>
-            <span class="sin"><input type="number" id="n-salary" min="200" max="3000" step="50" value="600" inputmode="numeric"></span>
-            <button type="button" data-step="50" data-t="n-salary" aria-label="増やす">＋</button>
-            <span class="u">万円</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="nav">
-      <button class="btn btn-ghost" data-back="func">戻る</button>
-      <button class="btn btn-primary" id="scale-next">結果を見る <span class="ar">→</span></button>
-    </div>
-  </section>
-
-  <!-- ============ STAGE 4: RESULT ============ -->
-  <section class="stage" id="stage-result">
-
-    <div class="res-loading" id="res-loading">
-      <div class="spin"></div>
-      <p>御社の数字で試算しています…</p>
-    </div>
-
-    <div id="res-body" style="display:none">
-
-      <div class="winner">
-        <span class="rl">診断結果 ／ AIが一番「利益」を生む場所</span>
-        <div class="wf">御社でAIが一番利益を生むのは<br><b id="w-name">営業</b></div>
-        <div class="big">
-          <span class="pre">年間 約</span><span class="v num" id="w-val">720</span><span class="u">万円</span>
-          <span class="y" id="w-msg">の利益インパクトが見込めます（概算）。</span>
-        </div>
-        <p class="note">※ 商談以外に消えていた時間をAIで巻き取り、その分を商談・提案・顧客対応へ。人を減らす話ではなく、同じ人数で手数が増える計算です。</p>
-      </div>
-
-      <div class="rank">
-        <h3>5機能の利益インパクト ランキング</h3>
-        <div id="rank-list"></div>
-        <div class="total-box">
-          <span class="tl">5機能 合計の<br>年間利益インパクト（概算）</span>
-          <span class="tv num"><span id="t-pre">約 </span><span id="t-val">1,180</span><span class="ts" id="t-suf">万円</span></span>
-        </div>
-        <p class="disc">
-          ※ この試算は<b>公開情報・一般値ベースの概算</b>です。御社の実数（業務内訳・原価・体制）に基づく精密試算と、「どこから手をつけると一番効くか」の設計は、無料相談でお出しします。
+</div>
+</section>
+<!-- ============ STAGE 1: ATTRIBUTES ============ -->
+<section class="stage" id="stage-attr">
+<div class="sec-head"><span class="n">01</span><h2>御社に​ついて</h2></div>
+<p class="sec-sub">4つだけ。​御社の​規模に​合わせて​試算の​精度を​上げます。</p>
+<div class="qblock" data-key="industry">
+<span class="qt">御社に​いちばん近い​事業は​どれですか？<span class="req">​必須</span></span>
+<div class="opts">
+<div class="opt" data-val="D2C">D2C​（自社ブランド/定期通販）</div>
+<div class="opt" data-val="EC・通販">EC・通販​（モール/自社EC）</div>
+<div class="opt" data-val="美容・クリニック">美容・​クリニック​（自由診療）</div>
+<div class="opt" data-val="教育">教育・スクール</div>
+<div class="opt" data-val="SaaS・IT">SaaS・IT</div>
+<div class="opt" data-val="人材">人材・エージェント</div>
+<div class="opt" data-val="その他">その​他</div>
+</div>
+</div>
+<div class="qblock" data-key="revenue">
+<span class="qt">直近の​年商は、​ざっくりどの​あたりですか？<span class="req">​必須</span></span>
+<div class="opts">
+<div class="opt" data-val="〜3億">〜3億​（まだ​一点突破で​伸ばせる）</div>
+<div class="opt" data-val="3〜10億">3〜10億​（人を​増や​し始めた​局面）</div>
+<div class="opt" data-val="10〜50億">10〜50億​（非効率が​出る​規模）</div>
+<div class="opt" data-val="50億〜">50億〜​（全社​横断で​詰める​余地）</div>
+</div>
+</div>
+<div class="qblock" data-key="employees">
+<span class="qt">社員数は​どの​くらいですか？<span class="req">​必須</span></span>
+<div class="opts">
+<div class="opt" data-val="〜10名">〜10名​（一人が​何役も​兼任）</div>
+<div class="opt" data-val="10〜50名">10〜50名​（役割分担が​始まる）</div>
+<div class="opt" data-val="50〜150名">50〜150名​（報告工数が​膨らむ）</div>
+<div class="opt" data-val="150名〜">150名〜​（部門で​打ち手が​割れる）</div>
+</div>
+</div>
+<div class="qblock" data-key="role">
+<span class="qt">あなたの​お立場は？<span class="req">​必須</span></span>
+<div class="opts">
+<div class="opt" data-val="経営者・役員">経営者・役員​（P/Lに​責任）</div>
+<div class="opt" data-val="事業責任者">事業責任者​（事業P/Lを​見る）</div>
+<div class="opt" data-val="部門長">部​門長​（自部署の​数字を​持つ）</div>
+<div class="opt" data-val="担当者">担当者​（提案材料を​探し中）</div>
+</div>
+</div>
+<div class="nav">
+<button class="btn btn-ghost" data-back="intro">戻る</button>​
+<button class="btn btn-primary" disabled="" id="attr-next">次へ​ <span class="ar">→</span></button>
+</div>
+</section>
+<!-- ============ STAGE 2: FUNCTION ISSUES ============ -->
+<section class="stage" id="stage-func">
+<div class="sec-head"><span class="n">02</span><h2>いまの​課題感</h2></div>
+<p class="sec-sub">5つの機能​それぞれ、​いまどれくらい​課題を​感じていますか。​直感で​OKです。</p>
+<!-- 営業（主役） -->
+<div class="fcard" data-fkey="sales">
+<div class="fh"><span class="ftag star">主役</span><span class="fn">営業</span></div>
+<p class="fd">提案資料・議事録・リスト作成などに​追われず、​商談​その​ものに​時間を​使えていますか？</p>
+<div class="lvls">
+<div class="lvl" data-lv="big">商談は​業務の​半分以下</div>
+<div class="lvl" data-lv="mid">付随作業で​残業が​常態化</div>
+<div class="lvl" data-lv="low">商談時間は​確保できている</div>
+<div class="lvl" data-lv="none">営業部門は​ない</div>
+</div>
+</div>
+<!-- マーケ -->
+<div class="fcard" data-fkey="mkt">
+<div class="fh"><span class="ftag">マーケ</span><span class="fn">マーケティング</span></div>
+<p class="fd">当てる施策と​クリエイティブを、​十分な​量と​スピードで​回せていますか？</p>
+<div class="lvls">
+<div class="lvl" data-lv="big">制作が​全く​追いつかない</div>
+<div class="lvl" data-lv="mid">検証の​量と​速度が​足りない</div>
+<div class="lvl" data-lv="low">獲得効率は​安定している</div>
+<div class="lvl" data-lv="none">マーケ機能は​ない</div>
+</div>
+</div>
+<!-- CS -->
+<div class="fcard" data-fkey="cs">
+<div class="fh"><span class="ftag">CS</span><span class="fn">カスタマーサポート</span></div>
+<p class="fd">問い​合わせは​件数が​増えても​今の​人数で​回りますか？</p>
+<div class="lvls">
+<div class="lvl" data-lv="big">同じ​質問対応に​追われる</div>
+<div class="lvl" data-lv="mid">繁忙期は​遅れてクレーム</div>
+<div class="lvl" data-lv="low">今の​体制で​さばけている</div>
+<div class="lvl" data-lv="none">CS部門は​ない</div>
+</div>
+</div>
+<!-- 採用 -->
+<div class="fcard" data-fkey="hr">
+<div class="fh"><span class="ftag">採用</span><span class="fn">採用</span></div>
+<p class="fd">母集団形成から​選考・​日程調整まで​スムーズに​回せていますか？</p>
+<div class="lvls">
+<div class="lvl" data-lv="big">手作業で​単価だけ​上がる</div>
+<div class="lvl" data-lv="mid">送信・​日程調整に​時間</div>
+<div class="lvl" data-lv="low">今の​やり方で​採れている</div>
+<div class="lvl" data-lv="none">いま採用は​していない</div>
+</div>
+</div>
+<!-- バックオフィス -->
+<div class="fcard" data-fkey="bo">
+<div class="fh"><span class="ftag">バックオフィス</span><span class="fn">バックオフィス</span></div>
+<p class="fd">集計・レポート・議事録、​どれくらい​自動化できていますか？</p>
+<div class="lvls">
+<div class="lvl" data-lv="big">毎月まと​まった​工数が​消える</div>
+<div class="lvl" data-lv="mid">半分手作業で​ミスが​出る</div>
+<div class="lvl" data-lv="low">ほぼ​自動化できている</div>
+<div class="lvl" data-lv="none">専任の​担当は​いない</div>
+</div>
+</div>
+<div class="nav">
+<button class="btn btn-ghost" data-back="attr">戻る</button>​
+<button class="btn btn-primary" disabled="" id="func-next">次へ​ <span class="ar">→</span></button>
+</div>
+</section>
+<!-- ============ STAGE 3: SALES SCALE ============ -->
+<section class="stage" id="stage-scale">
+<div class="sec-head"><span class="n">03</span><h2>営業の​規模</h2></div>
+<p class="sec-sub">主役である​営業だけ、​実数で​入れていただくと​試算の​精度が​上がります。​目安で​OKです。</p>
+<div class="panel">
+<div class="field">
+<div class="q">
+<div class="qtx">
+<label for="n-sales">商談の​前後に​資料・連絡などの​作業が​発生する​人数</label>
+<span class="hint">営業・インサイドセールスを​含む人数</span>
+</div>
+<div class="stepper">
+<button aria-label="減らす" data-step="-1" data-t="n-sales" type="button">−</button>
+<span class="sin"><input id="n-sales" inputmode="numeric" max="500" min="1" step="1" type="number" value="5"/></span>
+<button aria-label="増やす" data-step="1" data-t="n-sales" type="button">＋</button>
+<span class="u">人</span>
+</div>
+</div>
+</div>
+<div class="field">
+<div class="q">
+<div class="qtx">
+<label for="n-salary">​その​一人​あたりの​平均年収</label>
+<span class="hint">会社負担の​人件費ベース​（目安で​OK）</span>​
+</div>
+<div class="stepper">
+<button aria-label="減らす" data-step="-50" data-t="n-salary" type="button">−</button>
+<span class="sin"><input id="n-salary" inputmode="numeric" max="3000" min="200" step="50" type="number" value="600"/></span>
+<button aria-label="増やす" data-step="50" data-t="n-salary" type="button">＋</button>
+<span class="u">万円</span>
+</div>
+</div>
+</div>
+</div>
+<div class="nav">
+<button class="btn btn-ghost" data-back="func">戻る</button>​
+<button class="btn btn-primary" id="scale-next">結果を​見る​ <span class="ar">→</span></button>
+</div>
+</section>
+<!-- ============ STAGE 4: RESULT ============ -->
+<section class="stage" id="stage-result">
+<div class="res-loading" id="res-loading">
+<div class="spin"></div>
+<p>御社の​数字で​試算しています…</p>
+</div>
+<div id="res-body" style="display:none">
+<div class="winner">
+<span class="rl">診断結果​ ／ AIが​一番​「利益」を​生む場所</span>
+<div class="wf">御社で​AIが​一番利益を​生むのは<br/><b id="w-name">営業</b></div>
+<div class="big">
+<span class="pre">年間 約</span><span class="v num" id="w-val">720</span><span class="u">万円</span>
+<span class="y" id="w-msg">の​利益インパクトが​見込めます​（概算）。</span>​
+</div>
+<p class="note">※ 商談以外に​消えていた​時間を​AIで​巻き取り、​その分を​商談・提案・顧客対応へ。​人を​減らす話ではなく、​同じ​人数で​手数が​増える​計算です。</p>
+</div>
+<div class="rank">
+<h3>5機能の​利益インパクト ランキング</h3>
+<div id="rank-list"></div>
+<div class="total-box">
+<span class="tl">5機能 合計の<br/>年間利益インパクト​（概算）</span>​
+<span class="tv num"><span id="t-pre">約 </span><span id="t-val">1,180</span><span class="ts" id="t-suf">万円</span></span>
+</div>
+<p class="disc">
+          ※ この​試算は<b>​公開情報・​一般値ベースの​概算</b>です。​御社の​実数​（業務内訳・原価・体制）に​基づく​精密試算と、​「どこから​手を​つけると​一番​効くか」の​設計は、​無料相談で​お出しします。​
         </p>
-      </div>
-
-      <!-- ▼▼ CTA: 予約URL / LINE URL 差し込み ▼▼ -->
-      <section class="cta">
-        <h2>御社の数字を、一緒に見ます。</h2>
-        <p>この概算を、御社の実数で精密試算に。どこから自動化すれば一番利益が伸びるかを、具体的な数字で設計します。売り込みはしません。御社の数字を一緒に見るだけです。</p>
-        <!-- 第一CTA: TimeRex の予約URLに差し替える（例: https://timerex.net/s/xxxxx） -->
-        <a class="cbtn solid" href="https://line.me/R/ti/p/@454pyxjj" target="_blank" rel="noopener" id="cta-book">無料相談で精密診断（30分・無料） <span class="ar">→</span></a>
-        <!-- 第二CTA: LINE友だち追加URLに差し替える（例: https://lin.ee/xxxxx） -->
-        <a class="cbtn line" href="https://line.me/R/ti/p/@454pyxjj" target="_blank" rel="noopener" id="cta-line">LINEで結果と改善ヒントを受け取る <span class="ar">→</span></a>
-        <p class="micro">所要30分／オンライン（Google Meet）／費用なし。<b>売り込みはしません。</b></p>
-      </section>
-
-      <!-- 信頼づけ -->
-      <section class="cred">
-        <div class="ct">診断する人の実績</div>
-        <div class="grid">
-          <div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を12ヶ月で<br>1,000万→1億に</div></div>
-          <div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br>赤字を黒字化</div></div>
-          <div class="c"><div class="v num">2<small>億</small></div><div class="l">手がけた事業の<br>累計営業利益</div></div>
-        </div>
-        <p class="by"><b>秋山 洋晃</b>（COO株式会社 代表取締役 ／ CMO代行）<br>D2C・EC・FMCG・クリニック・メディアを 15社以上 / 7年以上 支援。</p>
-      </section>
-
-      <div class="nav">
-        <button class="btn btn-ghost btn-big" id="restart-btn">もう一度診断する</button>
-      </div>
-
-    </div>
-  </section>
-
+</div>
+<!-- ▼▼ CTA: 予約URL / LINE URL 差し込み ▼▼ -->
+<section class="cta">
+<h2>御社の​数字を、​一緒に​見ます。</h2>
+<p>この​概算を、​御社の​実数で​精密試算に。​どこから​自動化すれば​一番​利益が​伸びるかを、​具体的な​数字で​設計します。​売り込みは​しません。​御社の​数字を​一緒に​見るだけです。</p>
+<!-- 第一CTA: TimeRex の予約URLに差し替える（例: https://timerex.net/s/xxxxx） -->
+<a class="cbtn solid" href="https://line.me/R/ti/p/@454pyxjj" id="cta-book" rel="noopener" target="_blank">無料相談で​精密診断​（30分・​無料）​ <span class="ar">→</span></a>
+<!-- 第二CTA: LINE友だち追加URLに差し替える（例: https://lin.ee/xxxxx） -->
+<a class="cbtn line" href="https://line.me/R/ti/p/@454pyxjj" id="cta-line" rel="noopener" target="_blank">LINEで​結果と​改善ヒントを​受け取る​ <span class="ar">→</span></a>
+<p class="micro">所要30分／オンライン​（Google Meet）​／費用なし。<b>​売り込みは​しません。</b></p>
+</section>
+<!-- 信頼づけ -->
+<section class="cred">
+<div class="ct">診断する​人の​実績</div>
+<div class="grid">
+<div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を​12ヶ月で<br/>1,000万→1億に</div></div>
+<div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br/>赤字を​黒字化</div></div>
+<div class="c"><div class="v num">2<small>億</small></div><div class="l">手が​けた​事業の<br/>累計営業利益</div></div>
+</div>
+<p class="by"><b>秋山 洋晃</b>​（COO株式会社 代表取締役 ／ CMO代行）<br/>D2C・EC・FMCG・クリニック・メディアを​ 15社以上​ / 7年以上​ 支援。</p>
+</section>
+<div class="nav">
+<button class="btn btn-ghost btn-big" id="restart-btn">もう​一度​診断する</button>​
+</div>
+</div>
+</section>
 </main>
-
 <footer>
-  <div class="wrap">
-    <div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
-    <div class="links">
-      <a href="https://cooinc.co.jp" target="_blank" rel="noopener">cooinc.co.jp</a>
-      <a href="https://x.com/akky0429" target="_blank" rel="noopener">X / @akky0429</a>
-      <a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
-    </div>
-    <div class="legal">本診断の結果は入力値にもとづく簡易的な推定（概算）であり、効果を保証するものではありません。<br>© COO Inc. ／ 秋山洋晃</div>
-  </div>
+<div class="wrap">
+<div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
+<div class="links">
+<a href="https://cooinc.co.jp" rel="noopener" target="_blank">cooinc.co.jp</a>
+<a href="https://x.com/akky0429" rel="noopener" target="_blank">X / @akky0429</a>
+<a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
+</div>
+<div class="legal">本診断の​結果は​入力値にもとづく​簡易的な​推定​（概算）であり、​効果を​保証する​ものでは​ありません。<br/>© COO Inc. ／ 秋山洋晃</div>
+</div>
 </footer>
-
 <script>
 (function(){
   "use strict";
@@ -921,41 +891,6 @@
   // 初期表示
   go("intro");
 })();
-</script>
-
-
-<!-- ════════════════════════════════════════════════════════════════════
-     BudouX — 日本語を「文節」で改行する（改行ストレス解消・GINPEI永続ルール 2026-06-02）
-     使い方: この丸ごとを </body> の直前に貼る。
-     方式: テキストノードだけにゼロ幅スペース(U+200B)を挿入する TreeWalker 方式。
-            innerHTMLを書き換えないので、フォーム等のJS/イベントを一切壊さない（shindan等の対話ページでも安全）。
-     CDN: jsdelivr ESM・バージョン固定(0.8.4)。Google公式 budoux。
-     ════════════════════════════════════════════════════════════════════ -->
-<style>:where(html){word-break:keep-all;overflow-wrap:anywhere;line-break:strict;}</style>
-<script type="module">
-  import { loadDefaultJapaneseParser } from 'https://cdn.jsdelivr.net/npm/budoux@0.8.4/+esm';
-  const parser = loadDefaultJapaneseParser();
-  const ZWSP = '​';
-  const SKIP = new Set(['SCRIPT','STYLE','TEXTAREA','CODE','PRE','NOSCRIPT','OPTION','INPUT']);
-  const hasJa = s => /[぀-ヿ㐀-鿿ｦ-ﾟ]/.test(s);
-  const apply = () => {
-    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode(n){
-        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        if (n.parentElement && SKIP.has(n.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
-        if (n.nodeValue.includes(ZWSP)) return NodeFilter.FILTER_REJECT;   // 既処理はスキップ（再実行安全）
-        if (!hasJa(n.nodeValue)) return NodeFilter.FILTER_REJECT;          // 和文を含む行だけ
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    const nodes = []; let n; while ((n = w.nextNode())) nodes.push(n);
-    for (const t of nodes){ const seg = parser.parse(t.nodeValue); if (seg.length > 1) t.nodeValue = seg.join(ZWSP); }
-  };
-  const run = () => { try { apply(); } catch (e) {} };
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', run); else run();
-  // 後からJSで追加された和文にも追従（characterData変更では発火しない＝無限ループしない）
-  let tm; const mo = new MutationObserver(() => { clearTimeout(tm); tm = setTimeout(run, 80); });
-  addEventListener('DOMContentLoaded', () => mo.observe(document.body, { childList:true, subtree:true }));
 </script>
 </body>
 </html>
