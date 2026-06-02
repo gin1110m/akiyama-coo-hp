@@ -449,5 +449,39 @@
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     BudouX — 日本語を「文節」で改行する（改行ストレス解消・GINPEI永続ルール 2026-06-02）
+     使い方: この丸ごとを </body> の直前に貼る。
+     方式: テキストノードだけにゼロ幅スペース(U+200B)を挿入する TreeWalker 方式。
+            innerHTMLを書き換えないので、フォーム等のJS/イベントを一切壊さない（shindan等の対話ページでも安全）。
+     CDN: jsdelivr ESM・バージョン固定(0.8.4)。Google公式 budoux。
+     ════════════════════════════════════════════════════════════════════ -->
+<style>:where(html){word-break:keep-all;overflow-wrap:anywhere;line-break:strict;}</style>
+<script type="module">
+  import { loadDefaultJapaneseParser } from 'https://cdn.jsdelivr.net/npm/budoux@0.8.4/+esm';
+  const parser = loadDefaultJapaneseParser();
+  const ZWSP = '​';
+  const SKIP = new Set(['SCRIPT','STYLE','TEXTAREA','CODE','PRE','NOSCRIPT','OPTION','INPUT']);
+  const hasJa = s => /[぀-ヿ㐀-鿿ｦ-ﾟ]/.test(s);
+  const apply = () => {
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(n){
+        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (n.parentElement && SKIP.has(n.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+        if (n.nodeValue.includes(ZWSP)) return NodeFilter.FILTER_REJECT;   // 既処理はスキップ（再実行安全）
+        if (!hasJa(n.nodeValue)) return NodeFilter.FILTER_REJECT;          // 和文を含む行だけ
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = []; let n; while ((n = w.nextNode())) nodes.push(n);
+    for (const t of nodes){ const seg = parser.parse(t.nodeValue); if (seg.length > 1) t.nodeValue = seg.join(ZWSP); }
+  };
+  const run = () => { try { apply(); } catch (e) {} };
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', run); else run();
+  // 後からJSで追加された和文にも追従（characterData変更では発火しない＝無限ループしない）
+  let tm; const mo = new MutationObserver(() => { clearTimeout(tm); tm = setTimeout(run, 80); });
+  addEventListener('DOMContentLoaded', () => mo.observe(document.body, { childList:true, subtree:true }));
+</script>
 </body>
 </html>
