@@ -134,12 +134,12 @@
   .fcard .fh .ftag.star{color:#fff;background:var(--accent);border-color:var(--accent)}
   .fcard .fh .fn{font-size:16px;font-weight:700;color:var(--ink);line-height:1.4}
   .fcard .fd{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px}
-  .lvls{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .lvls{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
   .lvl{
     display:flex;align-items:center;justify-content:center;text-align:center;
-    min-height:46px;padding:7px 4px;background:var(--paper);
+    min-height:48px;padding:9px 8px;background:var(--paper);
     border:1.5px solid var(--line);color:var(--text);
-    font-size:13px;font-weight:600;line-height:1.3;cursor:pointer;
+    font-size:13px;font-weight:600;line-height:1.35;cursor:pointer;
     transition:border-color .15s ease,background .15s ease,color .15s ease;user-select:none;
   }
   .lvl:hover{border-color:var(--accent)}
@@ -343,45 +343,45 @@
     <p class="sec-sub">4つだけ。御社の規模に合わせて試算の精度を上げます。</p>
 
     <div class="qblock" data-key="industry">
-      <span class="qt">業種<span class="req">必須</span></span>
+      <span class="qt">御社にいちばん近い事業はどれですか？<span class="req">必須</span></span>
       <div class="opts">
-        <div class="opt" data-val="D2C">D2C</div>
-        <div class="opt" data-val="EC・通販">EC・通販</div>
-        <div class="opt" data-val="美容・クリニック">美容・クリニック</div>
-        <div class="opt" data-val="教育">教育</div>
+        <div class="opt" data-val="D2C">D2C（自社ブランド/定期通販）</div>
+        <div class="opt" data-val="EC・通販">EC・通販（モール/自社EC）</div>
+        <div class="opt" data-val="美容・クリニック">美容・クリニック（自由診療）</div>
+        <div class="opt" data-val="教育">教育・スクール</div>
         <div class="opt" data-val="SaaS・IT">SaaS・IT</div>
-        <div class="opt" data-val="人材">人材</div>
+        <div class="opt" data-val="人材">人材・エージェント</div>
         <div class="opt" data-val="その他">その他</div>
       </div>
     </div>
 
     <div class="qblock" data-key="revenue">
-      <span class="qt">年商<span class="req">必須</span></span>
+      <span class="qt">直近の年商は、ざっくりどのあたりですか？<span class="req">必須</span></span>
       <div class="opts">
-        <div class="opt" data-val="〜3億">〜3億</div>
-        <div class="opt" data-val="3〜10億">3〜10億</div>
-        <div class="opt" data-val="10〜50億">10〜50億</div>
-        <div class="opt" data-val="50億〜">50億〜</div>
+        <div class="opt" data-val="〜3億">〜3億（まだ一点突破で伸ばせる）</div>
+        <div class="opt" data-val="3〜10億">3〜10億（人を増やし始めた局面）</div>
+        <div class="opt" data-val="10〜50億">10〜50億（非効率が出る規模）</div>
+        <div class="opt" data-val="50億〜">50億〜（全社横断で詰める余地）</div>
       </div>
     </div>
 
     <div class="qblock" data-key="employees">
-      <span class="qt">従業員数<span class="req">必須</span></span>
+      <span class="qt">社員数はどのくらいですか？<span class="req">必須</span></span>
       <div class="opts">
-        <div class="opt" data-val="〜10名">〜10名</div>
-        <div class="opt" data-val="10〜50名">10〜50名</div>
-        <div class="opt" data-val="50〜150名">50〜150名</div>
-        <div class="opt" data-val="150名〜">150名〜</div>
+        <div class="opt" data-val="〜10名">〜10名（一人が何役も兼任）</div>
+        <div class="opt" data-val="10〜50名">10〜50名（役割分担が始まる）</div>
+        <div class="opt" data-val="50〜150名">50〜150名（報告工数が膨らむ）</div>
+        <div class="opt" data-val="150名〜">150名〜（部門で打ち手が割れる）</div>
       </div>
     </div>
 
     <div class="qblock" data-key="role">
-      <span class="qt">あなたの立場<span class="req">必須</span></span>
+      <span class="qt">あなたのお立場は？<span class="req">必須</span></span>
       <div class="opts">
-        <div class="opt" data-val="経営者・役員">経営者・役員</div>
-        <div class="opt" data-val="事業責任者">事業責任者</div>
-        <div class="opt" data-val="部門長">部門長</div>
-        <div class="opt" data-val="担当者">担当者</div>
+        <div class="opt" data-val="経営者・役員">経営者・役員（P/Lに責任）</div>
+        <div class="opt" data-val="事業責任者">事業責任者（事業P/Lを見る）</div>
+        <div class="opt" data-val="部門長">部門長（自部署の数字を持つ）</div>
+        <div class="opt" data-val="担当者">担当者（提案材料を探し中）</div>
       </div>
     </div>
 
@@ -587,7 +587,7 @@
      ENDPOINT — bot の受信URL。空文字 "" のままなら何もPOSTせず、ツールは単体で完結する。
      bot公開後にここへ URL を入れると、診断完了時に payload を fetch POST する。
      POST が空 or 失敗しても UX は絶対に止めない（下の sendPayload を参照）。
-     例: const ENDPOINT = "https://b2546a2763fc32.lhr.life/diagnosis";
+     例: const ENDPOINT = "https://e38d62e0e6199c.lhr.life/diagnosis";
   ========================================================================== */
   const ENDPOINT = "";
 
