@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!-- ============================================================================
      【DRAFT — 秋山さん確認前提】この特典LPはドラフトです。公開前に秋山洋晃さん本人が、
      実績数値表記（10×／300%／2億／15社・7年）・コピー・肩書（COO株式会社 代表取締役／CMO代行）を
@@ -7,15 +8,15 @@
 ============================================================================ -->
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>AI導入 ROI試算シート ｜ 営業前工程の自動化で生まれるコスト削減ポテンシャル</title>
-<meta name="description" content="営業・バックオフィスの「商談以外の業務」をAI化すると、年間どれだけのコストが削減できるか。人数・年収・業務割合を入れるだけで、削減ポテンシャルをその場で試算します。">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#16273f">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<meta content="営業・バックオフィスの「商談以外の業務」をAI化すると、年間どれだけのコストが削減できるか。人数・年収・業務割合を入れるだけで、削減ポテンシャルをその場で試算します。" name="description"/>
+<meta content="noindex" name="robots"/>
+<meta content="#16273f" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --paper:#fbfaf7;
@@ -198,148 +199,133 @@
     .field .valbox input[type=number]{font-size:26px}
   }
 </style>
-</head>
+<style id="budoux-style">body{word-break:keep-all;overflow-wrap:anywhere;line-break:strict;}</style></head>
 <body>
-
 <!-- ===== HEADER ===== -->
 <header class="top">
-  <div class="wrap">
-    <span class="label">AI導入 ROI試算シート</span>
-    <h1>営業前工程を自動化すると、<em>年間いくら</em>のコストが浮くか。</h1>
-    <p>営業マンが商談以外に費やす時間 ── 議事録・提案資料・メール・リスト作成・情報収集。<b>ここをAI化すると生産性は約3倍。</b>その効果を、自社の数字で試算します。</p>
-  </div>
+<div class="wrap">
+<span class="label">AI導入 ROI試算シート</span>
+<h1>営業前工程を​自動化すると、<em>​年間いくら</em>の​コストが​浮くか。</h1>
+<p>営業マンが​商談以外に​費やす​時間 ── 議事録・提案資料・​メール・リスト作成・情報収集。<b>​ここを​AI化すると​生産性は​約3倍。</b>​その​効果を、​自社の​数字で​試算します。</p>
+</div>
 </header>
-
 <main class="wrap">
-
-  <!-- 入力 -->
-  <section class="sec">
-    <div class="sec-head"><span class="n">01</span><h2>自社の数字を入れる</h2></div>
-    <div class="panel">
-
-      <!-- ① 人数 -->
-      <div class="field">
-        <div class="q">
-          <div class="qt">
-            <label for="n-num">営業・バックオフィスの人数</label>
-            <span class="hint">商談前後の事務作業が発生する人の数</span>
-          </div>
-          <div class="valbox"><input type="number" id="n-num" min="1" max="200" step="1" value="10" inputmode="numeric"><span class="u">人</span></div>
-        </div>
-        <div class="rng">
-          <input type="range" id="r-num" min="1" max="100" step="1" value="10" aria-label="人数">
-          <div class="ends"><span>1</span><span>100+</span></div>
-        </div>
-      </div>
-
-      <!-- ② 年収 -->
-      <div class="field">
-        <div class="q">
-          <div class="qt">
-            <label for="n-salary">一人あたり 平均年収</label>
-            <span class="hint">会社負担の人件費ベース（目安でOK）</span>
-          </div>
-          <div class="valbox"><input type="number" id="n-salary" min="300" max="2000" step="10" value="600" inputmode="numeric"><span class="u">万円</span></div>
-        </div>
-        <div class="rng">
-          <input type="range" id="r-salary" min="300" max="1500" step="10" value="600" aria-label="平均年収">
-          <div class="ends"><span>300</span><span>1,500</span></div>
-        </div>
-      </div>
-
-      <!-- ③ 非コア業務割合 -->
-      <div class="field">
-        <div class="q">
-          <div class="qt">
-            <label for="n-ratio">商談以外の業務に使う時間</label>
-            <span class="hint">議事録・提案資料・メール・リスト作成・情報収集</span>
-          </div>
-          <div class="valbox"><input type="number" id="n-ratio" min="0" max="100" step="5" value="40" inputmode="numeric"><span class="u">%</span></div>
-        </div>
-        <div class="rng">
-          <input type="range" id="r-ratio" min="0" max="100" step="5" value="40" aria-label="商談以外の業務割合">
-          <div class="ends"><span>0%</span><span>100%</span></div>
-        </div>
-      </div>
-
-      <!-- ④ AI削減率 -->
-      <div class="field">
-        <div class="q">
-          <div class="qt">
-            <label for="n-ai">AI化で削減できる割合</label>
-            <span class="hint">その作業のうち、AIに任せられる部分</span>
-          </div>
-          <div class="valbox"><input type="number" id="n-ai" min="0" max="100" step="5" value="60" inputmode="numeric"><span class="u">%</span></div>
-        </div>
-        <div class="rng">
-          <input type="range" id="r-ai" min="0" max="100" step="5" value="60" aria-label="AI削減率">
-          <div class="ends"><span>0%</span><span>100%</span></div>
-        </div>
-      </div>
-
+<!-- 入力 -->
+<section class="sec">
+<div class="sec-head"><span class="n">01</span><h2>自社の​数字を​入れる</h2></div>
+<div class="panel">
+<!-- ① 人数 -->
+<div class="field">
+<div class="q">
+<div class="qt">
+<label for="n-num">営業・バックオフィスの​人数</label>
+<span class="hint">商談前後の​事務作業が​発生する​人の​数</span>
+</div>
+<div class="valbox"><input id="n-num" inputmode="numeric" max="200" min="1" step="1" type="number" value="10"/><span class="u">人</span></div>
+</div>
+<div class="rng">
+<input aria-label="人数" id="r-num" max="100" min="1" step="1" type="range" value="10"/>
+<div class="ends"><span>1</span><span>100+</span></div>
+</div>
+</div>
+<!-- ② 年収 -->
+<div class="field">
+<div class="q">
+<div class="qt">
+<label for="n-salary">一人​あたり 平均年収</label>
+<span class="hint">会社負担の​人件費ベース​（目安で​OK）</span>​
+</div>
+<div class="valbox"><input id="n-salary" inputmode="numeric" max="2000" min="300" step="10" type="number" value="600"/><span class="u">万円</span></div>
+</div>
+<div class="rng">
+<input aria-label="平均年収" id="r-salary" max="1500" min="300" step="10" type="range" value="600"/>
+<div class="ends"><span>300</span><span>1,500</span></div>
+</div>
+</div>
+<!-- ③ 非コア業務割合 -->
+<div class="field">
+<div class="q">
+<div class="qt">
+<label for="n-ratio">商談以外の​業務に​使う​時間</label>
+<span class="hint">議事録・提案資料・​メール・リスト作成・情報収集</span>
+</div>
+<div class="valbox"><input id="n-ratio" inputmode="numeric" max="100" min="0" step="5" type="number" value="40"/><span class="u">%</span></div>
+</div>
+<div class="rng">
+<input aria-label="商談以外の業務割合" id="r-ratio" max="100" min="0" step="5" type="range" value="40"/>
+<div class="ends"><span>0%</span><span>100%</span></div>
+</div>
+</div>
+<!-- ④ AI削減率 -->
+<div class="field">
+<div class="q">
+<div class="qt">
+<label for="n-ai">AI化で​削減できる​割合</label>
+<span class="hint">​その​作業の​うち、​AIに​任せられる​部​分</span>
+</div>
+<div class="valbox"><input id="n-ai" inputmode="numeric" max="100" min="0" step="5" type="number" value="60"/><span class="u">%</span></div>
+</div>
+<div class="rng">
+<input aria-label="AI削減率" id="r-ai" max="100" min="0" step="5" type="range" value="60"/>
+<div class="ends"><span>0%</span><span>100%</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 結果 -->
+<section class="result" id="result">
+<span class="rl">試算結果​ ／ 年間コスト削減ポテンシャル</span>
+<div class="big">
+<span class="pre">年間 約</span><span class="v num" id="out-main">1,400</span><span class="u">万円</span>
+<span class="y">分の​人件費を、​他の​仕事に​回せる​計算です。</span>​
+</div>
+<div class="sub">
+      これは​「削った​人件費」では​ありません。<b>​商談以外に​消えていた​時間を​AIで​巻き取り、​その分を​商談・提案・顧客対応に​回せる</b>と​いう​こと。​同じ​人数のまま、​営業の​手数が​増えます。​
     </div>
-  </section>
-
-  <!-- 結果 -->
-  <section class="result" id="result">
-    <span class="rl">試算結果 ／ 年間コスト削減ポテンシャル</span>
-    <div class="big">
-      <span class="pre">年間 約</span><span class="v num" id="out-main">1,400</span><span class="u">万円</span>
-      <span class="y">分の人件費を、他の仕事に回せる計算です。</span>
-    </div>
-    <div class="sub">
-      これは「削った人件費」ではありません。<b>商談以外に消えていた時間をAIで巻き取り、その分を商談・提案・顧客対応に回せる</b>ということ。同じ人数のまま、営業の手数が増えます。
-    </div>
-    <div class="break">
-      <div class="bk"><div class="bv num"><span id="out-total">6,000</span></div><div class="bc">年間 総人件費（万円）</div></div>
-      <div class="bk"><div class="bv num"><span id="out-noncore">2,400</span></div><div class="bc">非コア業務コスト（万円）</div></div>
-      <div class="bk"><div class="bv num"><span id="out-save">1,440</span></div><div class="bc">削減ポテンシャル（万円）</div></div>
-    </div>
-  </section>
-
-  <!-- 計算ロジック -->
-  <section class="logic" id="logic">
-    <h3>この数字の出し方</h3>
-    <div class="step"><span class="si">1</span><span>年間 総人件費 ＝ <b>人数 × 平均年収</b></span></div>
-    <div class="step"><span class="si">2</span><span>非コア業務コスト ＝ <b>総人件費 × 商談以外の業務割合</b></span></div>
-    <div class="step"><span class="si">3</span><span>年間 削減ポテンシャル ＝ <b>非コア業務コスト × AI削減率</b></span></div>
-    <p class="disc">※ これはあくまで簡易試算・推定値です。実際の効果は業務内容・ツールの選定・運用の定着度によって変わります。御社の業務フローに合わせた精密な試算と、何から手をつけるべきかの設計は、無料相談でお出しします。</p>
-  </section>
-
-  <!-- CTA -->
-  <!-- 予約導線: 暫定でLINE友だち追加に誘導。TimeRex作成後は cta-book の href を予約URLに差し替える -->
-  <section class="cta">
-    <h2>自社の精密試算を、30分で。</h2>
-    <p>業務の内訳を一緒に分解し、「どこから自動化すれば一番効くか」を具体的な数字でお出しします。売り込みはしません。</p>
-    <a class="btn" href="https://line.me/R/ti/p/@454pyxjj" target="_blank" rel="noopener" id="cta-book">無料相談で自社の精密試算をする <span class="ar">→</span></a>
-    <p class="micro">所要30分／オンライン（Google Meet）／費用なし</p>
-  </section>
-
-  <!-- 信頼づけ -->
-  <section class="cred">
-    <div class="ct">試算する人の実績</div>
-    <div class="grid">
-      <div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を12ヶ月で<br>1,000万→1億に</div></div>
-      <div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br>赤字を黒字化</div></div>
-      <div class="c"><div class="v num">2<small>億</small></div><div class="l">手がけた事業の<br>累計営業利益</div></div>
-    </div>
-    <p class="by"><b>秋山 洋晃</b>（COO株式会社 代表取締役 ／ CMO代行）<br>D2C・EC・FMCG・クリニック・メディアを 15社以上 / 7年以上 支援。</p>
-  </section>
-
+<div class="break">
+<div class="bk"><div class="bv num"><span id="out-total">6,000</span></div><div class="bc">年間 総人件費​（万円）</div></div>
+<div class="bk"><div class="bv num"><span id="out-noncore">2,400</span></div><div class="bc">非コア業務コスト​（万円）</div></div>
+<div class="bk"><div class="bv num"><span id="out-save">1,440</span></div><div class="bc">削減ポテンシャル​（万円）</div></div>
+</div>
+</section>
+<!-- 計算ロジック -->
+<section class="logic" id="logic">
+<h3>この​数字の​出し方</h3>
+<div class="step"><span class="si">1</span><span>年間 総人件費 ＝ <b>人数 × 平均年収</b></span></div>
+<div class="step"><span class="si">2</span><span>非コア業務コスト ＝ <b>総人件費 × 商談以外の​業務割合</b></span></div>
+<div class="step"><span class="si">3</span><span>年間 削減ポテンシャル ＝ <b>非コア業務コスト × AI削減率</b></span></div>
+<p class="disc">※ これは​あくまで​簡易試算・推定値です。​実際の​効果は​業務内容・​ツールの​選定・運用の​定着度に​よって​変わります。​御社の​業務フローに​合わせた​精密な​試算と、​何から​手を​つける​べきかの​設計は、​無料相談で​お出しします。</p>
+</section>
+<!-- CTA -->
+<!-- 予約導線: 暫定でLINE友だち追加に誘導。TimeRex作成後は cta-book の href を予約URLに差し替える -->
+<section class="cta">
+<h2>自社の​精密試算を、​30分で。</h2>
+<p>業務の​内訳を​一緒に​分解し、​「どこから​自動化すれば​一番​効くか」を​具体的な​数字で​お出しします。​売り込みは​しません。</p>
+<a class="btn" href="https://line.me/R/ti/p/@454pyxjj" id="cta-book" rel="noopener" target="_blank">無料相談で​自社の​精密試算を​する​ <span class="ar">→</span></a>
+<p class="micro">所要30分／オンライン​（Google Meet）​／費用なし</p>
+</section>
+<!-- 信頼づけ -->
+<section class="cred">
+<div class="ct">試算する​人の​実績</div>
+<div class="grid">
+<div class="c"><div class="v num">10<span class="ar">×</span></div><div class="l">月商を​12ヶ月で<br/>1,000万→1億に</div></div>
+<div class="c"><div class="v num">300<small>%</small></div><div class="l">CPA改善・3ヶ月で<br/>赤字を​黒字化</div></div>
+<div class="c"><div class="v num">2<small>億</small></div><div class="l">手が​けた​事業の<br/>累計営業利益</div></div>
+</div>
+<p class="by"><b>秋山 洋晃</b>​（COO株式会社 代表取締役 ／ CMO代行）<br/>D2C・EC・FMCG・クリニック・メディアを​ 15社以上​ / 7年以上​ 支援。</p>
+</section>
 </main>
-
 <footer>
-  <div class="wrap">
-    <div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
-    <div class="links">
-      <a href="https://cooinc.co.jp" target="_blank" rel="noopener">cooinc.co.jp</a>
-      <a href="https://x.com/akky0429" target="_blank" rel="noopener">X / @akky0429</a>
-      <a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
-    </div>
-    <div class="legal">本シートの試算結果は入力値にもとづく簡易的な推定であり、効果を保証するものではありません。<br>© COO Inc. ／ 秋山洋晃</div>
-  </div>
+<div class="wrap">
+<div class="fb">秋山 洋晃<span class="s">COO株式会社 代表取締役 ／ 事業責任者・CMO代行</span></div>
+<div class="links">
+<a href="https://cooinc.co.jp" rel="noopener" target="_blank">cooinc.co.jp</a>
+<a href="https://x.com/akky0429" rel="noopener" target="_blank">X / @akky0429</a>
+<a href="mailto:hiroaki.akiyama@cooinc.co.jp">hiroaki.akiyama@cooinc.co.jp</a>
+</div>
+<div class="legal">本シートの​試算結果は​入力値にもとづく​簡易的な​推定であり、​効果を​保証する​ものでは​ありません。<br/>© COO Inc. ／ 秋山洋晃</div>
+</div>
 </footer>
-
 <script>
 (function(){
   "use strict";
@@ -424,41 +410,6 @@
 
   calc();
 })();
-</script>
-
-
-<!-- ════════════════════════════════════════════════════════════════════
-     BudouX — 日本語を「文節」で改行する（改行ストレス解消・GINPEI永続ルール 2026-06-02）
-     使い方: この丸ごとを </body> の直前に貼る。
-     方式: テキストノードだけにゼロ幅スペース(U+200B)を挿入する TreeWalker 方式。
-            innerHTMLを書き換えないので、フォーム等のJS/イベントを一切壊さない（shindan等の対話ページでも安全）。
-     CDN: jsdelivr ESM・バージョン固定(0.8.4)。Google公式 budoux。
-     ════════════════════════════════════════════════════════════════════ -->
-<style>:where(html){word-break:keep-all;overflow-wrap:anywhere;line-break:strict;}</style>
-<script type="module">
-  import { loadDefaultJapaneseParser } from 'https://cdn.jsdelivr.net/npm/budoux@0.8.4/+esm';
-  const parser = loadDefaultJapaneseParser();
-  const ZWSP = '​';
-  const SKIP = new Set(['SCRIPT','STYLE','TEXTAREA','CODE','PRE','NOSCRIPT','OPTION','INPUT']);
-  const hasJa = s => /[぀-ヿ㐀-鿿ｦ-ﾟ]/.test(s);
-  const apply = () => {
-    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode(n){
-        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        if (n.parentElement && SKIP.has(n.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
-        if (n.nodeValue.includes(ZWSP)) return NodeFilter.FILTER_REJECT;   // 既処理はスキップ（再実行安全）
-        if (!hasJa(n.nodeValue)) return NodeFilter.FILTER_REJECT;          // 和文を含む行だけ
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    const nodes = []; let n; while ((n = w.nextNode())) nodes.push(n);
-    for (const t of nodes){ const seg = parser.parse(t.nodeValue); if (seg.length > 1) t.nodeValue = seg.join(ZWSP); }
-  };
-  const run = () => { try { apply(); } catch (e) {} };
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', run); else run();
-  // 後からJSで追加された和文にも追従（characterData変更では発火しない＝無限ループしない）
-  let tm; const mo = new MutationObserver(() => { clearTimeout(tm); tm = setTimeout(run, 80); });
-  addEventListener('DOMContentLoaded', () => mo.observe(document.body, { childList:true, subtree:true }));
 </script>
 </body>
 </html>
